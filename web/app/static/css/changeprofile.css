@@ -1,0 +1,11 @@
+.box {
+    align-self: auto;
+    background-color: #1F1F1F;
+    border-radius: 50px;
+    padding: 50px;
+    text-align: center;
+
+    width: 360px;
+    margin: 0 auto;
+    color: #fff;
+}

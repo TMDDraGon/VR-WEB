@@ -1,0 +1,42 @@
+.box {
+  /* position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
+  margin-top: 50px;
+  text-align: center;
+}
+
+h1 {
+    padding-bottom: 20px;
+}
+
+table.styled-table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  table.styled-table thead {
+    background-color: grey;
+    color: white;
+  }
+  
+  table.styled-table tbody {
+    background-color: #D9D9D9;
+    color: black;
+  }
+  
+  table.styled-table th,
+  table.styled-table td {
+    padding: 8px;
+    border: 1px solid #ccc;
+  }
+  
+  table.styled-table .Head{
+    background-color: grey;
+    color : white;
+  }
+  
+#image-bg {
+  background-image: url(topscore.jpg);
+}

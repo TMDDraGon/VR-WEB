@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Recursive&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="static/css/logo_transparent.png" />
+    <title>VR CS</title>
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@0.9.446/build/spline-viewer.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    
+    <title>Getting Started with Chart JS with www.chartjs3.com</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+      }
+      .chartMenu {
+        width: 100vw;
+        height: 40px;
+        background: #1A1A1A;
+        color: rgba(54, 162, 235, 1);
+      }
+      .chartMenu p {
+        padding: 10px;
+        font-size: 20px;
+      }
+      .chartCard {
+        width: 100vw;
+        height: calc(100vh - 40px);
+        background: rgba(54, 162, 235, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .chartBox {
+        width: 700px;
+        padding: 20px;
+        border-radius: 30px;
+        border: solid 3px rgba(54, 162, 235, 1);
+        background: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="chartCard">
+      <div class="chartBox">
+        <canvas id="myChart"></canvas>
+      </div>
+    </div>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js/dist/chart.umd.min.js"></script>
+    <script>
+    // setup 
+    let max;
+    const data = {
+    //   labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      datasets: [{
+        label: 'A',
+        data: [9],
+        backgroundColor: [
+          'rgba(255, 26, 104, 1)',
+        ],
+        borderColor: [
+          'rgba(255, 26, 104, 1)',
+        ],
+        circumference : (ctx) => {
+            const dataPoints = ctx.chart.data.datasets.map((dataset, index) => {
+                return dataset.data[0];
+            })
+            
+            max = Math.max(...dataPoints);
+            return ctx.dataset.data / max * 360;
+        },
+        
+      },{
+        label: 'B',
+        data: [2],
+        backgroundColor: [
+          'rgba(54, 162, 235, 1)',
+        ],
+        borderColor: [
+          'rgba(54, 162, 235, 1)',
+        ],
+        circumference : (ctx) => {
+            const dataPoints = ctx.chart.data.datasets.map((dataset, index) => {
+                return dataset.data[0];
+            })
+            
+            max = Math.max(...dataPoints);
+            return ctx.dataset.data / max * 360;
+        }
+      },{
+        label: 'C',
+        data: [18],
+        backgroundColor: [
+          'rgba(255, 206, 86, 1)',
+        ],
+        borderColor: [
+          'rgba(255, 206, 86, 1)',
+        ],
+        circumference : (ctx) => {
+            const dataPoints = ctx.chart.data.datasets.map((dataset, index) => {
+                return dataset.data[0];
+            })
+            
+            max = Math.max(...dataPoints);
+            return ctx.dataset.data / max * 360;
+        },
+      }]
+    };
+
+    // config 
+    const config = {
+      type: 'doughnut',
+      data,
+      options: {
+        
+
+      }
+    };
+
+    // render init block
+    const myChart = new Chart(
+      document.getElementById('myChart'),
+      config
+    );
+
+    // Instantly assign Chart.js version
+    const chartVersion = document.getElementById('chartVersion');
+    chartVersion.innerText = Chart.version;
+    </script>
+
+  </body>
+</html>

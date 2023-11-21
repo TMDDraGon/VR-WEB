@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Recursive&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="static/css/logo_transparent.png" />
+    <title>VR CS</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="static/css/signup.css">
+</head>
+
+<body>
+    <div class="container">
+        <a href="/base" style="text-decoration: none;" class="title">
+            <h3 style="color: #FFFFDE;">VRacer</h3>
+        </a>
+        <div class="row" id="from1">
+            <div class="col-md-6 d-none d-md-block ">
+                <div class="box1">
+                    <div class="img-left">
+                        <img src="static/img/web/icon _car_.svg" alt="">
+                    </div>
+                    <div class="img-left">
+                        <img src="static/img/web/icon _register_.svg" alt="">
+                    </div>
+                    <div class="img-left">
+                        <img src="static/img/web/icon _racer_.svg" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="box2">
+                    <form>
+                        <legend class="title">Signup</legend>
+                        <label class="form-text">
+                            We need you help up with some basic information to create your account.
+                        </label>
+                        <div class="line-container">
+                            <div class="circleoneone"><label class="stepone">1</label></div>
+                            <div class="line"></div>
+                            <div class="circletwoone"><label class="steptwo">2</label></div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <div class="me-auto p-2 bd-highlight w-100">
+                                <input type="text" id="username" name="username" placeholder="Username" minlength="1" maxlength="30" autofocus required>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-md-between">
+                            <div class="me-auto p-2 bd-highlight w-100">
+                                <input type="text" id="firstname" name="firstname" placeholder="FirstName" minlength="1" maxlength="30" required>
+                            </div>
+                            <div class="me-auto p-2 bd-highlight w-100">
+                                <input type="text" id="lastname" name="lastname" placeholder="LastName" minlength="1" maxlength="30" required>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-md-between">
+                            <div class="me-auto p-2 bd-highlight w-100">
+                                <label for="Date" class="text-wrapper">Date</label>
+                            </div>
+                            <div class="me-auto p-2 bd-highlight w-100">
+                                <input type="date" id="date" name="date" placeholder="" required>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between w-100">
+                            <div class="me-auto p-2 bd-highlight w-100">
+                                <label for="location" class="text-wrapper">Gender</label>
+                            </div>
+                            <div class="me-auto p-2 bd-highlight w-100">
+                                <input class="form-check-input-female" type="radio" name="flexRadioDefault" id="radioMale" value="male">
+                                <label class="form-check-label" for="radioMale">Male</label>
+                            </div>
+                            <div class="me-auto p-2 bd-highlight w-100">
+                                <input class="form-check-input-female" type="radio" name="flexRadioDefault" id="radioFemale" value="female">
+                                <label class="form-check-label" for="radioFemale">Female</label>
+                            </div>
+                        </div>
+                        <a id="nextstep" class="btn btn-primary-nextstep">
+                            Next step
+                        </a>
+                        <div class="line-container">
+                            <div class="line"></div>
+                            <div class="orline">or</div>
+                            <div class="line"></div>
+                        </div>
+                        <a href="/google/">
+                            <span class="google"><img src="static/img/web/icon _google contained fill_.svg"
+                                    alt="" ></span>
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="from2" hidden="hidden">
+            <div class="col-md-6">
+                <div class="box2">
+                    <div class="d-flex justify-content-md-start">
+                        <div class="d-flex align-items-md-center">
+                            <button id="back" class="backbutton">
+                                Back
+                            </button>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-md-center">
+                        <div class="d-flex justify-content-center">
+                            <h3 class="title2">Signup</h3>
+                        </div>
+                    </div>
+                    <form method="POST">
+                        <label class="form-text">
+                            We need you help up with some basic information to create your account.
+                        </label>
+                        <div class="line-container">
+                            <div class="circleonetwo"><label class="stepone">1</label></div>
+                            <div class="linestep"></div>
+                            <div class="circletwotwo"><label class="steptwo">2</label></div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <div class="me-auto p-2 bd-highlight w-100">
+                                <input type="email" id="email" name="email" placeholder="Email" required>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <div class="me-auto p-2 bd-highlight w-100">
+                                <input type="text" id="phone" name="phone" placeholder="Phone" minlength="10" maxlength="20" pattern="[0-9]+" required>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-md-between">
+                            <div class="me-auto p-2 bd-highlight w-100">
+                                <input type="password" id="password" name="password" placeholder="Password" minlength="6" maxlength="30" pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*[@#$%^&+=]).+$" required>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between w-100">
+                            <div class="me-auto p-2 bd-highlight w-100">
+                                <input type="password" id="repeatpassword" name="repeatpassword" placeholder="Passowrd repeat" minlength="6" maxlength="30" pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*[@#$%^&+=]).+$" required>
+                            </div>
+                        </div>
+                        <a class="btn btn-primary-confirm" id="showModalButton">
+                            Confirmed
+                        </a>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-6 d-none d-md-block">
+                <div class="box1">
+                    <div class="img-left">
+                        <img src="static/img/web/icon _car_.svg">
+                    </div>
+                    <div class="img-left">
+                        <img src="static/img/web/icon _register_.svg">
+                    </div>
+                    <div class="img-left">
+                        <img src="static/img/web/icon _racer_.svg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <a class="btn btn-primary-confirm" id="showModal">
+        Confirmed
+    </a> -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="box3">
+                                <div class="d-flex justify-content-md-end">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closepopup">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="d-flex justify-content-md-center">
+                                    <div class="d-flex align-items-center">
+                                        <legend style="font-size: 40px; color: #FFFFDE;">OTP Verification</legend>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-md-center">
+                                    <div class="d-flex align-items-center">
+                                        <div id="passwordHelpBlock" style="color: #FFFFDE;">
+                                            Enter OTP sent to <span id="emailPlaceholder">User@email.com</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-md-center">
+                                    <div class="d-flex align-items-center w-100">
+                                        <input type="text" id="otp" name="otp">
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-md-center">
+                                    <div class="d-flex align-items-center">
+                                        <div id="passwordHelpBlock" style="color: #FFFFDE;">
+                                            Didn't receive OTP code?
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-md-center">
+                                    <div class="d-flex align-items-center">
+                                        <button style="color: #FFFF00; background-color: transparent; border-color: transparent;">Resend code</button>
+                                    </div>
+                                </div>
+                                <div class="d-flex justify-content-md-center">
+                                    <div class="d-flex align-items-center">
+                                        <button type="button" class="btn btn-primary-verify" id="verifyButton" style="margin-bottom: 20px;">Verify</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleView() {
+            if ($('#from1').attr('hidden')) {
+                $('#from1').removeAttr('hidden');
+                $('#from2').attr('hidden', 'hidden');
+            } else {
+                $('#from1').attr('hidden', 'hidden');
+                $('#from2').removeAttr('hidden');
+            }
+        }
+
+        $("#closepopup").click(function () {
+            modal.modal('hide');
+        });
+
+        $("#back").click(function () {
+            if ($('#from1').attr('hidden')) {
+                toggleView();
+            }
+        });
+
+        document.getElementById("nextstep").addEventListener("click", function() {
+            const username = document.getElementById("username");
+            const firstName = document.getElementById("firstname");
+            const lastName = document.getElementById("lastname");
+            const date = document.getElementById("date");
+            const radioMale = document.getElementById("radioMale");
+            const radioFemale = document.getElementById("radioFemale");
+
+            if (firstName.validity.valid && lastName.validity.valid && date.validity.valid && (radioMale.checked || radioFemale.checked)) {
+                toggleView();
+            } else {
+                if (username.value == "") {
+                    username.setCustomValidity("Please enter your username.");
+                    username.reportValidity();
+                } else if (firstName.value == "") {
+                    firstName.setCustomValidity("Please enter your firstname.");
+                    firstName.reportValidity();
+                } else if (lastName.value == "") {
+                    lastName.setCustomValidity("Please enter your lastname.");
+                    lastName.reportValidity();
+                } else if (date.value == "") {
+                    date.setCustomValidity("Please enter your date.");
+                    date.reportValidity();  
+                } else if (!radioMale.checked && !radioFemale.checked) {
+                    radioMale.setCustomValidity("Please select your gender.");
+                    radioMale.reportValidity();
+                } else {
+                    username.setCustomValidity("");
+                    radioMale.setCustomValidity("");
+                }
+            }
+        });
+
+        const showModalButton = document.getElementById('showModalButton');
+        const showModal = document.getElementById('showModal');
+        const modal = $('#exampleModalCenter');
+        const email = document.getElementById("email");
+        const phone = document.getElementById("phone");
+        const password = document.getElementById("password");
+        const repeatPassword = document.getElementById("repeatpassword");
+
+        document.getElementById("showModalButton").addEventListener('click', function () {
+            if (!email.checkValidity()) {
+                email.reportValidity();
+            } else if (phone.value === "") {
+                phone.setCustomValidity("Please enter a phone number.");
+                phone.reportValidity();
+            } else if (phone.value.length < 10 || phone.value.length > 20) {
+                phone.setCustomValidity("Phone number must be between 10 and 20 characters.");
+                phone.reportValidity();
+            } else if (!/^[0-9]+$/.test(phone.value)) {
+                phone.setCustomValidity("Phone number can only contain numeric characters (0-9).");
+                phone.reportValidity();
+            } else if (password.value === "") {
+                password.setCustomValidity("Please enter your password");
+                password.reportValidity();
+            } else if (repeatPassword.value === "") {
+                repeatPassword.setCustomValidity("Please enter your password");
+                repeatPassword.reportValidity();
+            } else if (password.value !== repeatPassword.value) {
+                password.setCustomValidity("Passwords do not match.");
+                password.value = "";
+                repeatPassword.value = "";
+                password.reportValidity();
+            } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).+/.test(password.value)) {
+                password.setCustomValidity("Password must contain at least one uppercase letter, one lowercase letter, and one special character.");
+                password.reportValidity();
+            } else if (password.value.length < 6 || password.value.length > 30) {
+                password.setCustomValidity("Password must be between 6 and 30 characters.");
+                password.reportValidity();
+            } else {
+                const requestData = {
+                    email: email.value,
+                };
+
+                fetch("/api/getmail_signup", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(requestData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message === 'successfully') {
+                        document.getElementById("emailPlaceholder").textContent = email.value;
+                        modal.modal('show');
+                    } else {
+                        console.log(data.message);
+                    }
+                });
+            }
+        });
+
+        document.getElementById('verifyButton').addEventListener('click', function () {
+            const otpValue = document.getElementById("otp").value;
+            const requestData = {
+                otp: otpValue,
+            };
+
+            fetch("/api/otp_signup", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(requestData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.message)
+                    if (data.message === 'successfully') {
+                        console.log('OTP verification successful');
+
+                        var radioMale = document.getElementById('radioMale');
+                        var radioFemale = document.getElementById('radioFemale');
+                        if (radioMale.checked) {
+                            selectedGender = radioMale.value;
+                        } else if (radioFemale.checked) {
+                            selectedGender = radioFemale.value;
+                        }
+                        const formData = {
+                            username: document.getElementById("username").value,
+                            fname: document.getElementById("firstname").value,
+                            lname: document.getElementById("lastname").value,
+                            birthday: document.getElementById("date").value,
+                            email: document.getElementById("email").value,
+                            password: document.getElementById("password").value,
+                            Password_repeat: document.getElementById("repeatpassword").value,
+                            phone: document.getElementById("phone").value,
+                            gender: selectedGender,
+                        };
+                        fetch("/signup", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify(formData)
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.message === 'successfully') {
+                                    console.log('Signup successful');
+                                    window.location.href = data.redirect;
+                                } else {
+                                    console.log('Signup failed');
+                                    console.log(data.message)
+                                }
+                            });
+                    } else {
+                        console.log('OTP verification failed');
+                    }
+                });
+        });
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+body {
+  background-color: black;
+  color: #ffffde;
+  font-family: 'Recursive';
+}
+
+div.box1 {
+  background-color: #ffffde;
+  border-radius: 10px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+a.backbutton {
+  background-color: black;
+  color: #ffffde;
+  border-radius: 10px;
+  margin-top: 20px;
+  margin-left: 20px;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+img.img-profile {
+  width: 100%;
+  max-width: 60px;
+  height: auto;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.custom-navbar {
+  border-radius: 20px;
+  background: #05204A;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+a.navbar-brand {
+  color: #ffffde;
+  font-size: 40px;
+}
+
+h3.datetime {
+  font-size: 30px;
+  color: black;
+  margin-right: 50px;
+  margin-top: 30px;
+}
+
+.video-container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+video {
+  border-radius: 20px;
+}
+
+canvas.graph {
+  margin-top: 20px;
+  background-color: black;
+  color: white;
+}
+
+div.chart-container {
+  background-color: black;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+div.chartBox {
+  width: 100%;
+    max-width: 200px;
+    height: auto;
+}

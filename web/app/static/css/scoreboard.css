@@ -1,0 +1,187 @@
+body {
+  background-color: black;
+  color: white;
+  font-family: 'Recursive';
+}
+
+img.img-profile {
+  width: 100%;
+  max-width: 60px;
+  height: auto;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.custom-navbar {
+  border-radius: 20px;
+  background: #05204A;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+a.navbar-brand {
+  color: #ffffde;
+  font-size: 40px;
+}
+
+label.textusername {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 15px;
+}
+
+div.container-fluid {
+  padding-left: 30px;
+  padding-right: 50px;
+}
+
+div.box {
+  background-color: #ffffde;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+span.text {
+  color: black;
+  font-family: Recursive;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+a.changebox { text-decoration: none; }
+
+a.changebox:hover {
+  background-color: #bbc4d3;
+  border-radius: 20px;
+  color: #ffffde;
+}
+
+div#show-profile.Profile-toggle:hover {
+  background-color: #05204A;
+  
+}
+div#show-changepassword.Change-password-toggle:hover {
+  background-color: #05204A;
+}
+
+.btn-secondary {
+  color: black;
+  
+}
+
+img.signal {
+  width: 100%;
+  max-width: 30px;
+  height: auto;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+label.text {
+  color: #000;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-right: 40px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+button#dropdownMenuButton1.btn.btn-secondary.dropdown-toggle {
+  background-color: #ffffde;
+}
+
+button#dropdownMenuButton1.btn.btn-secondary.dropdown-toggle:hover {
+  color: black;
+}
+
+th.headtable {
+  padding: 10px;
+}
+
+tr.head {
+  background-color: #05204A;
+  color: #ffffde;
+  text-align: center;
+}
+
+tr.data {
+  background-color: #ffffde;
+  color: black;
+  font-size: 24px;
+  text-align: center;
+}
+
+table.styled-table {
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+ul.dropdown-menu.show {
+  background-color: #ffffde;
+}
+
+img.icondrop {
+  width: 100%;
+  max-width: 20px;
+  height: auto;
+  padding-right: 5px;
+}
+
+div.box-black {
+  border-radius: 20px;
+  background-color: black;
+  margin-top: 20px;
+}
+
+div.chart-container {
+
+
+}
+
+div.chartBox {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+}
+
+canvas.chart1 {
+  position: absolute;
+  width: 100%;
+  max-width: 600px;
+  height: 210px;
+  overflow: hidden;
+  z-index: 1;
+}
+
+canvas.chart2 {
+  width: 100%;
+  max-width: 600px;
+  height: 210px;
+  overflow: hidden;
+  z-index: 0;
+}
+
+div.line {
+  border-bottom: 2px solid #888;
+  margin-bottom: 10px;
+}
+
+tr.hello-row {
+  background-color: #C7C7AF;
+}
+
+a.moredetail {
+  color: #ffffde;
+}
+
+a.moredetail:link {
+  text-decoration: none;
+}

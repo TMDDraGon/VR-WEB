@@ -1,0 +1,147 @@
+body {
+    background-color: black;
+    font-family: 'Recursive';
+}
+
+.box {
+    background-color: #ffffde;
+    border-radius: 10px;
+    padding-left: 44px;
+    padding-right: 44px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-top: 30px;
+}
+
+div.img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.img-profile {
+    width: 100%;
+    max-width: 200px;
+    height: auto;
+    border-radius: 50%;
+}
+
+
+legend.profile.title {
+    background-color:#05204A;
+    color: #ffffde;
+    padding-left: 29px;
+    padding-right: 29px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    font-size: 40px;
+}
+
+h3 {
+    margin-top: 30px;
+}
+
+a.VRacer:link {
+    text-decoration: none;
+}
+
+div#form-group.mb-3 {
+    display: flex;
+    flex-direction: column;
+}
+
+input#email, #phone, #username, #bio, #location, #oldpassword, #newpassword, #confirmpassword, #password, #firstname, #lastname {
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.20);
+    padding: 10px;
+    border-color: transparent;
+}
+
+label.text-wrapper {
+    color: #000;
+    font-family: 'Recursive';
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+button.btn.btn-primary {
+    border-radius: 10px;
+    background: rgba(3, 207, 109, 0.76);
+    font: 16px;
+    width: 200px;
+    height: 50px;
+    flex-shrink: 0;
+    color: black;
+    border-color: black;
+    font-weight: bold;
+}
+
+button.btn.btn-primary.password {
+    border-radius: 10px;
+    background: #ffffde;
+    font: 16px;
+    width: 200px;
+    height: 50px;
+    flex-shrink: 0;
+    color: black;
+    border-color: black;
+    font-weight: bold;
+    margin-top: 50px;
+}
+
+button.btn.btn-primary.password:hover {
+    background: #ffd118;
+}
+
+span.text {
+    color: #000;
+    font-family: 'Recursive';
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+a.changebox:link { text-decoration: none; }
+
+div#show-profile.Profile-toggle {
+    padding: 12px;
+    border-radius: 10px;
+    
+}
+
+div#show-changepassword.Change-password-toggle,
+#show-deleteaccount.delete-toggle {
+    padding: 12px;
+    border-radius: 10px;
+}
+
+div#show-profile.Profile-toggle:hover,
+#show-deleteaccount.delete-toggle:hover {
+    background-color:#C6C6AF;
+    
+}
+
+div#show-changepassword.Change-password-toggle:hover {
+    background-color: #C6C6AF;
+}
+
+div#show-profile.Profile-toggle:active {
+    background-color:#8E8E7E;
+    
+}
+
+div#show-changepassword.Change-password-toggle:active {
+    background-color:#8E8E7E;
+}
+
+button.btn.btn-primary.delete-account {
+    background-color: red;
+}
+
+.line {
+    border-bottom: 2px solid #888;
+    margin-bottom: 10px;
+  }

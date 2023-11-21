@@ -1,0 +1,230 @@
+.home .rectangle-4 {
+    position: relative;
+    width: 80%;
+    height: 50%;
+    max-width: 1200px;
+    max-height: 400px;
+    top: 100px;
+    margin: 0 auto;
+    background-color: #d9d9d9;
+    border-radius: 72px;
+}
+
+.home .div {
+    position: relative;
+}
+
+.container1, .container2, .container3 {
+    margin-top: 100px;
+}
+
+/* car */
+.home .loop-car {
+    position: relative;
+    width: 625px;
+    height: 625px;
+    left: 771px;
+}
+
+.home .mini-map {
+    top: 25px;
+    background-color: #fffff780;
+    position: relative;
+    width: 600px;
+    height: 600px;
+}
+
+.home .car {
+    position: absolute;
+    width: 625px;
+    height: 625px;
+    left: 99px;
+}
+
+.home .car-2 {
+    top: 25px;
+    background-color: #fffff780;
+    position: absolute;
+    width: 600px;
+    height: 600px;
+}
+
+.home .img {
+    top: 0;
+    left: 25px;
+    position: absolute;
+    width: 600px;
+    height: 600px;
+}
+
+/* word */
+.home .wordloop {
+    position: absolute;
+    width: 1025px;
+    height: 625px;
+    left: -371px;
+}
+
+.home .word {
+    position: relative;
+    width: 1028px;
+    height: 625px;
+    left: 871px;
+}
+
+.home .rectangle {
+    position: absolute;
+    width: 1000px;
+    height: 600px;
+    top: 25px;
+    left: 0;
+    background-color: #ffffde80;
+    border-radius: 76px;
+}
+
+.home .rectangle-2 {
+    width: 1000px;
+    height: 600px;
+    background-color: #ffffde;
+    border-radius: 76px;
+    box-shadow: 0px 4px 4px #00000040;
+}
+
+.home .rectangle-3 {
+    width: 1000px;
+    height: 600px;
+    background-color: #ffffde;
+    border-radius: 76px;
+    box-shadow: 0px 4px 4px #00000040;
+}
+
+
+/* card */
+.home .zone {
+    position: relative;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+/* Add styles for the card container */
+.home .card-container {
+    display: flex; /* Display the cards in a row */
+    justify-content: space-between; /* Space evenly between the cards */
+    flex-wrap: wrap; /* Wrap cards to the next row if necessary */
+}
+
+/* Styling for icon images */
+.home .icon-user-circle {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    top: 82px;
+    left: 100px;
+}
+
+/* Add styles for other icon images (icon-github, icon-facebook-square, icon-email) */
+.home .icon-github {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 255px;
+    left: 42px;
+}
+
+.home .icon-facebook-square {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 255px;
+    left: 227px;
+}
+
+.home .icon-email {
+    position: absolute;
+    width: 37px;
+    height: 25px;
+    top: 258px;
+    left: 131px;
+}
+
+/* Styling for text elements */
+.home .text-wrapper-5 {
+    position: absolute;
+    height: 43px;
+    top: 15px;
+    left: 54px;
+    font-family: 'Recursive', monospace;
+    font-weight: 400;
+    color: #ffffde;
+    font-size: 36px;
+    letter-spacing: 0;
+    line-height: normal;
+    white-space: nowrap;
+}
+
+/* Add styles for other text elements (text-wrapper-6, text-wrapper-7, text-wrapper-9) */
+.home .text-wrapper-6 {
+    position: absolute;
+    height: 24px;
+    top: 203px;
+    left: 72px;
+    font-family: 'Recursive', monospace;
+    font-weight: 400;
+    color: #ffffde;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: normal;
+    white-space: nowrap;
+}
+
+.home .text-wrapper-7 {
+    position: absolute;
+    height: 43px;
+    top: 15px;
+    left: 54px;
+    font-family: 'Recursive', monospace;
+    font-weight: 400;
+    color: #05204a;
+    font-size: 36px;
+    letter-spacing: 0;
+    line-height: normal;
+    white-space: nowrap;
+}
+
+.home .text-wrapper-9 {
+    color: #05204a;
+    position: absolute;
+    height: 24px;
+    top: 203px;
+    left: 72px;
+    font-family: 'Recursive', monospace;
+    font-weight: 400;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: normal;
+    white-space: nowrap;
+}
+
+/* Styling for team card containers */
+.home .team-card {
+    background-color: #05204a;
+    border-color: #ffffde;
+}
+
+.home .team-card-2 {
+    background-color: #ffffde;
+    border-color: #05204a;
+}
+
+.home .t-card {
+    width: calc(25% - 20px); /* Set the width of each card to 25% of the container width with some spacing */
+    height: 300px;
+    border-radius: 25px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid;
+    margin-bottom: 25px;
+    min-width: 300px;
+    max-width: 300px;
+}
+

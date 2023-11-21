@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Recursive&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="static/css/logo_transparent.png" />
+    <title>VR CS</title>
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@0.9.446/build/spline-viewer.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/video.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.js" integrity="sha512-uLlukEfSLB7gWRBvzpDnLGvzNUluF19IDEdUoyGAtaO0MVSBsQ+g3qhLRL3GTVoEzKpc24rVT6X1Pr5fmsShBg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-light custom-navbar">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">VRacer</a>
+                <div class="d-flex justify-content-md-end">
+                    <div class="p-2 flex-fill bd-highlight">
+                        <a href="{{url_for('profile')}}"><img src="{{ url_for('img', filename=current_user.avatar) }}" style="width: 40px; border-radius: 50%;"></a>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <label class="textusername"> {{ current_user.username }} </label>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box1">
+                    <div class="d-md-flex flex-row justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                            <a class="backbutton" href="/scoreboard">Back</a>
+                        </div>
+                        <div>
+                            
+                        </div>
+                        <div>
+                            <span id="datetime"></span>
+                        </div>
+                    </div>
+                    <div class="d-md-flex flex-row justify-content-center mt-3">
+                        <video id="video1" controls autoplay width="1280" height="720" playsinline>
+                            <source src="/listvideo/{{video1}}" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="row">
+                        <div class="box-black col-md-6">
+                            <div class="d-md-flex flex-row align-items-center">
+                                <canvas class="graph" id="graphchart" style="width: 100%; max-width: 600px; max-height: 100%;"></canvas>
+                            </div>
+                        </div>
+                        <div class="col-md-1">
+
+                        </div>
+                        <div class="box-black col-md-5">
+                            <div class="d-md-flex flex-row justify-content-center align-items-center">
+                                <div style="margin-left: 20px; margin-right: 20px;">
+                                    <div>
+                                        <label style="color: white;">Circus</label>
+                                    </div>
+                                    <div style="color: #F52064;">
+                                        <span id="roundaboutCount"></span><label>/10CIRCLE</label>
+                                    </div>
+                                    <div>
+                                        <label style="color: white">Speed limit</label>
+                                    </div>
+                                    <div  style="color: #15F1D8;">
+                                        <span id="zonelimitCount"></span><label>/6ZONE</label>
+                                    </div>
+                                    <div>
+                                        <label style="color: white;">Crosswalk</label>
+                                    </div>
+                                    <div style="color: #71ED1B;">
+                                        <span id="crosswalkCount"></span><label>/6CROSS</label>
+                                    </div>
+                                </div>
+                                <div class="chartBox">
+                                    <canvas id="myChart" class="chart1 img-fluid"></canvas>
+                                    <canvas id="myChart2" class="chart2 img-fluid"></canvas>
+                                </div>
+                            </div>
+                            <div class="d-md-flex flex-row justify-content-center">
+                                <div class="col-md-6 mt-3">
+                                    <div>
+                                        Crash
+                                    </div>
+                                    <div>
+                                        <span id="carcrash"></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mt-3">
+                                    <div>
+                                        Brake
+                                    </div>
+                                    <div>
+                                        <span id="carbrake"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        
+
+                    <div class="box-black" id="roundabouttoggle">
+                        <div class="row">
+                            <div class="col-md-5 align-items-center maptest">
+                                <img id="mapround" class="img-fluid" src="">
+                            </div>
+                            <div class="col-md-2 box-change">
+                                    <button class="black-btn-click" onclick="toggleSection('roundabouttoggle')"><img class="icon-arrow img-fluid align-items-center" src="/static/img/web/icon-arrow-roundabout-right.png" /></button>
+                                    <button class="white-btn-click" onclick="toggleSection('crosswalktoggle')"><img class="icon-arrow img-fluid align-items-center" src="/static/img/web/crosswalk_black.png" /></button>
+                                    <button class="white-btn-click" onclick="toggleSection('zonelimittoggle')"><img class="icon-arrow img-fluid align-items-center" src="/static/img/web/speed_black.png" /></button>
+                            </div>
+                            <div class="col-md-5 box-data">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-4 mt-2">
+                                            <label class="head">Circus</label>
+                                        </div>
+                                        <div class="col-md-8 mt-2">
+                                            <label class="head">Total</label> 
+                                            <span class="score" id="roundaboutCountscore"></span>
+                                            <label class="maxscore">/1000</label>                                        
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center">
+                                        <div class="col-md-6 mt-2">
+                                            <label class="head">Lab1</label>
+                                        </div>
+                                        <div class="col-md-6 mt-2">
+                                            <label class="head">Lab2</label>
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center mt-1 mb-1">
+                                        <div class="col-md-3">
+                                            <img id="rounds_1" class="img-fluid" src="" alt="">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <img id="roundaboutpass_0">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <img id="rounds_6" class="img-fluid" src="" alt="">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <img id="roundaboutpass_5">
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center mt-1 mb-1">
+                                        <div class="col-md-3">
+                                            <img id="rounds_2" class="img-fluid" src="" alt="">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <img id="roundaboutpass_1">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <img id="rounds_7" class="img-fluid" src="" alt="">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <img id="roundaboutpass_6">
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center mt-1">
+                                        <div class="col-md-3">
+                                            <img id="rounds_3" class="img-fluid" src="" alt="">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <img id="roundaboutpass_2">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <img id="rounds_8" class="img-fluid" src="" alt="">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <img id="roundaboutpass_7">
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center mt-1">
+                                        <div class="col-md-3">
+                                            <img id="rounds_4" class="img-fluid" src="" alt="">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <img id="roundaboutpass_3">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <img id="rounds_9" class="img-fluid" src="" alt="">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <img id="roundaboutpass_8">
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center mt-1">
+                                        <div class="col-md-3">
+                                            <img id="rounds_5" class="img-fluid" src="" alt="">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <img class="img-fluid" id="roundaboutpass_4">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <img id="rounds_10" class="img-fluid" src="" alt="">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <img class="img-fluid" id="roundaboutpass_9">
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center mt-1">
+                                        <div class="col-md-6 mb-2">
+                                            <label class="head">Lab1 Point</label><span id="scorelap1round"></span><label class="maxscore">/500</label>
+                                        </div>
+                                        <div class="col-md-6 mb-2">
+                                            <label class="head">Lab2 Point</label><span id="scorelap2round"></span><label class="maxscore">/500</label>
+                                        </div>
+                                    </div>
+                            </div>
+                        </div>
+                         
+                    </div>
+                    <div class="box-black" id="crosswalktoggle" style="display: none;">
+                        <div class="row ">
+                            <div class="col-md-5 align-items-center maptest">
+                                <img id="mapcross" class="img-fluid" src="/static/img/web/minimapmap.png" alt="">
+                            </div>
+                            <div class="col-md-2 box-change">
+                                    <button class="white-btn-click img-fluid" onclick="toggleSection('roundabouttoggle')"><img class="icon-arrow align-items-center" src="/static/img/web/icon _arrowroundaboutright_.png" /></button>
+                                    <button class="black-btn-click img-fluid" onclick="toggleSection('crosswalktoggle')"><img class="icon-arrow align-items-center" src="/static/img/web/crosswalk_white.png" /></button>
+                                    <button class="white-btn-click img-fluid" onclick="toggleSection('zonelimittoggle')"><img class="icon-arrow align-items-center" src="/static/img/web/speed_black.png" /></button>
+                            </div>
+                            <div class="col-md-5 box-data ">
+                               
+                                    <div class="row align-items-center">
+                                        <div class="col-md-4 mt-2">
+                                            <label class="head">Crosswalk</label>
+                                        </div>
+                                        <div class="col-md-8 mt-2">
+                                            <label>Total</label> 
+                                            <span class="score" id="crosswalkCountscore"></span>
+                                            <label class="maxscore">/600</label>                                        
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center">
+                                        <div class="col-md-6 mt-2">
+                                            <label class="head">Lab1</label>
+                                        </div>
+                                        <div class="col-md-6 mt-2">
+                                            <label class="head">Lab2</label>
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center mt-1">
+                                        <div class="col-md-3 ">
+                                            <img id="crosss_1" class="img-fluid" src="/static/img/web/crosswalk_black.png" alt="">
+                                        </div>
+                                        <div class="col-md-3 ">
+                                            <img id="crosswalkpass_0">
+                                        </div>
+                                        <div class="col-md-3 ">
+                                            <img id="crosss_4" class="img-fluid" src="/static/img/web/crosswalk_black.png" alt="">
+                                        </div>
+                                        <div class="col-md-3 ">
+                                            <img id="crosswalkpass_3">
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center mt-1">
+                                        <div class="col-md-3 ">
+                                            <img id="crosss_2" class="img-fluid" src="/static/img/web/crosswalk_black.png" alt="">
+                                        </div>
+                                        <div class="col-md-3 ">
+                                            <img id="crosswalkpass_1">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <img id="crosss_5" class="img-fluid" src="/static/img/web/crosswalk_black.png" alt="">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <img id="crosswalkpass_4">
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center mt-1">
+                                        <div class="col-md-3">
+                                            <img id="crosss_3" class="img-fluid" src="/static/img/web/crosswalk_black.png" alt="">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <img id="crosswalkpass_2">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <img id="crosss_6" class="img-fluid" src="/static/img/web/crosswalk_black.png" alt="">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <img id="crosswalkpass_5">
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center mt-1">
+                                        <div class="col-md-6">
+                                            <label class="head">Lab1 Point</label><span id="scorelap1cross"></span><label class="maxscore">/500</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="head">Lab2 Point</label><span id="scorelap2cross"></span><label class="maxscore">/500</label>
+                                        </div>
+                                    </div>
+
+                            </div>
+                        </div>
+                         
+                    </div>
+                    <div class="box-black" id="zonelimittoggle" style="display: none; ">
+                        <div class="row">
+                            <div class="col-md-5 align-items-center maptest">
+                                <img id="mapzone" class="img-fluid" src="/static/img/web/minimap/minimap" alt="">
+                            </div>
+                            <div class="col-md-2 box-change">
+                                    <button class="white-btn-click" onclick="toggleSection('roundabouttoggle')"><img class="icon-arrow  img-fluid align-items-center" src="/static/img/web/icon _arrowroundaboutright_.png" /></button>
+                                    <button class="white-btn-click" onclick="toggleSection('crosswalktoggle')"><img class="icon-arrow  img-fluid align-items-center" src="/static/img/web/crosswalk_black.png" /></button>
+                                    <button class="black-btn-click" onclick="toggleSection('zonelimittoggle')"><img class="icon-arrow  img-fluid align-items-center" src="/static/img/web/speed_white.png" /></button>
+                            </div>
+                            <div class="col-md-5 box-data">
+
+                                    <div class="row align-items-center">
+                                        <div class="col-md-4 mt-2">
+                                            <label class="head">Zonelimit</label>
+                                        </div>
+                                        <div class="col-md-8 mt-2">
+                                            <label>Total</label> 
+                                            <span class="score" id="zonelimitCountscore"></span>
+                                            <label class="maxscore">/600</label>                                        
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 mt-2">
+                                            <label class="head">Lab1</label>
+                                        </div>
+                                        <div class="col-md-6 mt-2">
+                                            <label class="head">Lab2</label>
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center mt-1">
+                                        <div class="col-md-3">
+                                            <img id="zones_1" class="img-fluid" src="/static/img/web/speed_black.png" alt="">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <img id="zonelimitpass_0">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <img id="zones_4" class="img-fluid" src="/static/img/web/speed_black.png" alt="">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <img class="img-fluid" id="zonelimitpass_3">
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center mt-1">
+                                        <div class="col-md-3">
+                                            <img id="zones_2" class="img-fluid" src="/static/img/web/speed_black.png" alt="">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <img id="zonelimitpass_1">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <img id="zones_5" class="img-fluid" src="/static/img/web/speed_black.png" alt="">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <img id="zonelimitpass_4">
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center mt-1">
+                                        <div class="col-md-3">
+                                            <img id="zones_3" class="img-fluid" src="/static/img/web/speed_black.png" alt="">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <img id="zonelimitpass_2">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <img id="zones_6" class="img-fluid" src="/static/img/web/speed_black.png" alt="">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <img id="zonelimitpass_5">
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center mt-1">
+                                        <div class="col-md-6">
+                                            <label class="head">Lab1 Point</label><span id="scorelap1zone"></span><label class="maxscore">/500</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="head">Lab2 Point</label><span id="scorelap2zone"></span><label class="maxscore">/500</label>
+                                        </div>
+                                    </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-10">
+                            <video id="video2" autoplay width="1074" height="547" playsinline>
+                                <source src="/listvideo/{{video2}}" type="video/mp4">
+                            </video>
+                        </div>
+                        <div class="col-md-2">
+                            <div id="showround" class="lapbox" style="margin-left: 20px; background-color: black;">
+                                <div class="d-md-flex flex-column align-items-center">
+                                    <h3>Round</h3>
+                                </div>
+                                <div class="d-md-flex flex-column align-items-center">
+                                    <label class="switch">
+                                        <input type="checkbox" id="labToggleCheckboxround">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div id="lab1round">
+                                    <div class="d-flex flex-column align-items-center">
+                                        <button class="lap" onclick="setTimestamproundabout(1)"><img id="round_1" src="" alt=""></button>
+                                        <button class="lap" onclick="setTimestamproundabout(2)"><img id="round_2" src="" alt=""></button>
+                                        <button class="lap" onclick="setTimestamproundabout(3)"><img id="round_3" src="" alt=""></button>
+                                        <button class="lap" onclick="setTimestamproundabout(4)"><img id="round_4" src="" alt=""></button>
+                                        <button class="lap" onclick="setTimestamproundabout(5)"><img id="round_5" src="" alt=""></button>
+                                    </div>
+                                </div>
+                                <div id="lab2round" style="display: none;">
+                                    <div class="d-flex flex-column align-items-center">
+                                        <button class="lap" onclick="setTimestamproundabout(6)"><img id="round_6" src="" alt=""></button>
+                                        <button class="lap" onclick="setTimestamproundabout(7)"><img id="round_7" src="" alt=""></button>
+                                        <button class="lap" onclick="setTimestamproundabout(8)"><img id="round_8" src="" alt=""></button>
+                                        <button class="lap" onclick="setTimestamproundabout(9)"><img id="round_9" src="" alt=""></button>
+                                        <button class="lap" onclick="setTimestamproundabout(10)"><img id="round_10" src="" alt=""></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="showcross" class="lapbox" style="margin-left: 20px; display: none; background-color: black;">
+                                <div class="d-md-flex flex-column align-items-center">
+                                    <h3>Cross</h3>
+                                </div>
+                                <div class="d-md-flex flex-column align-items-center">
+                                    <label class="switch">
+                                        <input type="checkbox" id="labToggleCheckboxcross">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div id="lab1cross">
+                                    <div class="d-flex flex-column align-items-center">
+                                        <button class="lapcross" onclick="setTimestampcrosswalk(1)"><img id="cross_1" src="" alt=""></button>
+                                        <button class="lapcross" onclick="setTimestampcrosswalk(2)"><img id="cross_2" src="" alt=""></button>
+                                        <button class="lapcross" onclick="setTimestampcrosswalk(3)"><img id="cross_3" src="" alt=""></button>
+                                    </div>
+                                </div>
+                                <div id="lab2cross" style="display: none;">
+                                    <div class="d-flex flex-column align-items-center">
+                                        <button class="lapcross" onclick="setTimestampcrosswalk(4)"><img id="cross_4" src="" alt=""></button>
+                                        <button class="lapcross" onclick="setTimestampcrosswalk(5)"><img id="cross_5" src="" alt=""></button>
+                                        <button class="lapcross" onclick="setTimestampcrosswalk(6)"><img id="cross_6" src="" alt=""></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="showzone" class="lapbox" style="margin-left: 20px; display: none; background-color: black;">
+                                <div class="d-md-flex flex-column align-items-center">
+                                    <h3>Zone</h3>
+                                </div>
+                                <div class="d-md-flex flex-column align-items-center">
+                                    <label class="switch">
+                                        <input type="checkbox" id="labToggleCheckboxzone">
+                                        <span class="slider"></span>
+                                    </label>
+                                </div>
+                                <div id="lab1zone">
+                                    <div class="d-flex flex-column align-items-center">
+                                        <button class="lapzone" onclick="setTimestampzonelimit(1)"><img id="zone_1" src="" alt=""></button>
+                                        <button class="lapzone" onclick="setTimestampzonelimit(2)"><img id="zone_2" src="" alt=""></button>
+                                        <button class="lapzone" onclick="setTimestampzonelimit(3)"><img id="zone_3" src="" alt=""></button>
+                                    </div>
+                                </div>
+                                <div id="lab2zone" style="display: none;">
+                                    <div class="d-flex flex-column align-items-center">
+                                        <button class="lapzone" onclick="setTimestampzonelimit(4)"><img id="zone_4" src="" alt=""></button>
+                                        <button class="lapzone" onclick="setTimestampzonelimit(5)"><img id="zone_5" src="" alt=""></button>
+                                        <button class="lapzone" onclick="setTimestampzonelimit(6)"><img id="zone_6" src="" alt=""></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        let setTimestamp_lap1;
+        $(document).ready(function () {
+            const currentURL = window.location.href;
+
+            const match = currentURL.match(/\/video\/([^/]+)/);
+            const valueAfterVideo = match[1];
+
+            console.log(valueAfterVideo)
+
+            const requestData = {
+                id: valueAfterVideo
+            };
+
+            console.log(requestData)
+            fetch("/api/video_detail", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(requestData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    dognut(data);
+                    setTimestamp_lap1 = data.lap1
+                    setTimestamp_lap2 = data.lap2
+                });
+        });
+
+        function toggleSection(sectionId) {
+            // Get a reference to the section element
+            const section = document.getElementById(sectionId);
+            const roundabout = document.getElementById('roundabouttoggle');
+            const crosswalk = document.getElementById('crosswalktoggle');
+            const zonelimit = document.getElementById('zonelimittoggle');
+            const showround = document.getElementById('showround');
+            const showcross = document.getElementById('showcross');
+            const showzone = document.getElementById('showzone');
+            console.log("section", section);
+            console.log('roundabout', roundabout);
+            // Check if the section is currently visible
+            if (section === roundabout) {
+                showround.style.display = 'block';
+                showcross.style.display = 'none';
+                showzone.style.display = 'none';
+                roundabout.style.display = 'block';
+                crosswalk.style.display = 'none';
+                zonelimit.style.display = 'none';
+            } else if (section === crosswalk) {
+                showround.style.display = 'none';
+                showcross.style.display = 'block';
+                showzone.style.display = 'none';
+                roundabout.style.display = 'none';
+                crosswalk.style.display = 'block';
+                zonelimit.style.display = 'none';
+            } else {
+                showround.style.display = 'none';
+                showcross.style.display = 'none';
+                showzone.style.display = 'block';
+                roundabout.style.display = 'none';
+                crosswalk.style.display = 'none';
+                zonelimit.style.display = 'block';
+            }
+        };
+
+        // Get references to the checkbox and the lab div elements
+        const labToggleCheckboxround = document.getElementById('labToggleCheckboxround');
+        const labToggleCheckboxcross = document.getElementById('labToggleCheckboxcross');
+        const labToggleCheckboxzone = document.getElementById('labToggleCheckboxzone'); 
+        const lab1round = document.getElementById('lab1round');
+        const lab2round = document.getElementById('lab2round');
+        const lab1cross = document.getElementById('lab1cross');
+        const lab2cross = document.getElementById('lab2cross');
+        const lab1zone = document.getElementById('lab1zone');
+        const lab2zone = document.getElementById('lab2zone');
+
+        // Add a change event listener to the checkbox
+        labToggleCheckboxround.addEventListener('change', function () {
+            // Check if the checkbox is checked
+            if (labToggleCheckboxround.checked) {
+                // If checked, show lab2 and hide lab1
+                lab1round.style.display = 'none';
+                lab2round.style.display = 'block';
+            } else {
+                // If not checked, show lab1 and hide lab2
+                lab1round.style.display = 'block';
+                lab2round.style.display = 'none';
+            }
+        });
+
+        labToggleCheckboxcross.addEventListener('change', function () {
+            // Check if the checkbox is checked
+            if (labToggleCheckboxcross.checked) {
+                // If checked, show lab2 and hide lab1
+                lab1cross.style.display = 'none';
+                lab2cross.style.display = 'block';
+            } else {
+                // If not checked, show lab1 and hide lab2
+                lab1cross.style.display = 'block';
+                lab2cross.style.display = 'none';
+            }
+        });
+
+        labToggleCheckboxzone.addEventListener('change', function () {
+            // Check if the checkbox is checked
+            if (labToggleCheckboxzone.checked) {
+                // If checked, show lab2 and hide lab1
+                lab1zone.style.display = 'none';
+                lab2zone.style.display = 'block';
+            } else {
+                // If not checked, show lab1 and hide lab2
+                lab1zone.style.display = 'block';
+                lab2zone.style.display = 'none';
+            }
+        });
+
+        function dognut(data) {
+            const xValues = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+                
+                let roundaboutCount = 0;
+                let zonelimitCount = 0;
+                let crosswalkCount = 0;
+                
+                for (let i = 0; i < 10; i++) {
+                    if (data.pass_roundabout[i] === 1) {
+                        document.getElementById(`roundaboutpass_${i}`).src = '/static/img/web/correct.png';
+                        roundaboutCount++;
+                        if (i >= 5) {
+                            document.getElementById(`round_${i+1}`).src = `/static/img/web/pass${(i+1)-5}.png`; 
+                            document.getElementById(`rounds_${i+1}`).src = `/static/img/web/pass${(i+1)-5}.png`; 
+                        } else {
+                            document.getElementById(`round_${i+1}`).src = `/static/img/web/pass${i+1}.png`;
+                            document.getElementById(`rounds_${i+1}`).src = `/static/img/web/pass${i+1}.png`;
+                        }
+                    }
+                    else {
+                        document.getElementById(`roundaboutpass_${i}`).src = '/static/img/web/wrong.png';
+                        if (i >= 5) {
+                            document.getElementById(`round_${i+1}`).src = `/static/img/web/roundred${(i+1)-5}.png`;
+                            document.getElementById(`rounds_${i+1}`).src = `/static/img/web/roundred${(i+1)-5}.png`;
+                        } else {
+                            document.getElementById(`round_${i+1}`).src = `/static/img/web/roundred${i+1}.png`;
+                            document.getElementById(`rounds_${i+1}`).src = `/static/img/web/roundred${i+1}.png`;
+                        }
+                    }
+                }
+                let round1 = 0;
+                let round2 = 0;
+                let cross1 = 0;
+                let cross2 = 0;
+                let zone1 = 0;
+                let zone2 = 0;
+
+                for (let i = 0; i < 5; i++) {
+                    if (data.pass_roundabout[i] === 1) {
+                        round1 += 100;
+                    }
+                }
+
+                for (let i = 5; i < 10; i++) {
+                    if (data.pass_roundabout[i] === 1) {
+                        round2 += 100;
+                    }
+                }
+
+                for (let i = 0; i < 3; i++) {
+                    if (data.pass_crosswalk[i] === 1) {
+                        cross1 += 100;
+                    }
+                }
+
+                for (let i = 3; i < 6; i++) {
+                    if (data.pass_crosswalk[i] === 1) {
+                        cross2 += 100;
+                    }
+                }
+
+                for (let i = 0; i < 3; i++) {
+                    if (data.pass_zonelimit[i] === 1) {
+                        zone1 += 100;
+                    }
+                }
+
+                for (let i = 3; i < 6; i++) {
+                    if (data.pass_zonelimit[i] === 1) {
+                        zone2 += 100;
+                    }
+                }
+
+                const roundary = [];
+                const crossary = [];
+                const zoneary = [];
+                for (let i = 1; i <= 5; i++) {
+                    if (data.pass_roundabout[i-1] === 1) {
+                        roundary.push(1);
+                    }
+                    else {
+                        roundary.push(0);
+                    }
+                }
+
+                for (let i = 1; i <= 3; i++) {
+                    if (data.pass_crosswalk[i-1] === 1) {
+                        crossary.push(1);
+                    } else {
+                        crossary.push(0);
+                    }
+                }
+
+                for (let i = 1; i <= 3; i++) {
+                    if (data.pass_zonelimit[i-1] === 1) {
+                        zoneary.push(1);
+                    } else {
+                        zoneary.push(0);
+                    }
+                }
+
+                const roundaryString = roundary.join(''); 
+                const crossaryString = crossary.join(''); 
+                const zonearyString = zoneary.join(''); 
+                document.getElementById(`mapround`).src = `/static/img/web/minimap/minimap_p${roundaryString}.png`;
+                document.getElementById(`mapcross`).src = `/static/img/web/crosswalk/minimap_p${crossaryString}.png`;
+                document.getElementById(`mapzone`).src = `/static/img/web/speedlimit/minimap_p${zonearyString}.png`;
+
+                for (let i = 0; i < 6; i++) {
+                    if (data.pass_zonelimit[i] === 1) {
+                        document.getElementById(`zonelimitpass_${i}`).src = '/static/img/web/correct.png';
+                        zonelimitCount++;
+                        if (i >= 3) {
+                            document.getElementById(`zone_${i+1}`).src = `/static/img/web/zone${(i+1)-3}.png`;
+                            document.getElementById(`zones_${i+1}`).src = `/static/img/web/zone${(i+1)-3}.png`;
+                        } else {
+                            document.getElementById(`zone_${i+1}`).src = `/static/img/web/zone${i+1}.png`;
+                            document.getElementById(`zones_${i+1}`).src = `/static/img/web/zone${i+1}.png`;
+                        }
+                    
+                    } else {
+                        document.getElementById(`zonelimitpass_${i}`).src = '/static/img/web/wrong.png';
+                        if (i >= 3) {
+                            document.getElementById(`zone_${i+1}`).src = `/static/img/web/zonered${(i+1)-3}.png`;
+                            document.getElementById(`zones_${i+1}`).src = `/static/img/web/zonered${(i+1)-3}.png`;
+                        } else {
+                            document.getElementById(`zone_${i+1}`).src = `/static/img/web/zone${i+1}.png`;
+                            document.getElementById(`zones_${i+1}`).src = `/static/img/web/zone${i+1}.png`;
+                        }
+                    }
+                }
+
+                for (let i = 0; i < 6; i++) {
+                    if (data.pass_crosswalk[i] === 1) {
+                        document.getElementById(`crosswalkpass_${i}`).src = '/static/img/web/correct.png';
+                        crosswalkCount++;
+                        if (i >= 3) {
+                            document.getElementById(`cross_${i+1}`).src = `/static/img/web/cross${(i+1)-3}.png`;
+                            document.getElementById(`crosss_${i+1}`).src = `/static/img/web/cross${(i+1)-3}.png`;
+                        } else {
+                            document.getElementById(`cross_${i+1}`).src = `/static/img/web/cross${i+1}.png`;
+                            document.getElementById(`crosss_${i+1}`).src = `/static/img/web/cross${i+1}.png`;
+                        }
+                    } else {
+                        document.getElementById(`crosswalkpass_${i}`).src = '/static/img/web/wrong.png';
+                        if (i >= 3) {
+                            document.getElementById(`cross_${i+1}`).src = `/static/img/web/crossred${(i+1)-3}.png`;
+                            document.getElementById(`crosss_${i+1}`).src = `/static/img/web/crossred${(i+1)-3}.png`;
+                        } else {
+                            document.getElementById(`cross_${i+1}`).src = `/static/img/web/crossred${i+1}.png`;
+                            document.getElementById(`crosss_${i+1}`).src = `/static/img/web/crossred${i+1}.png`;
+                        }
+                    }
+                }
+                
+                const chartData1 = {
+                    // labels: ['A', 'B', 'C'],
+                    datasets: [
+                        {
+                            data: [roundaboutCount],
+                            backgroundColor: roundaboutCount === 0 ? 'rgba(0, 0, 0, 0.2)' : 'rgba(245, 32, 100, 1)',
+                            borderColor: ['black'],
+                            borderWidth: 3,
+                            circumference: roundaboutCount === 0 ? 360: roundaboutCount / 10 * 360,
+                        },
+                        {
+                            data: [crosswalkCount],
+                            backgroundColor: crosswalkCount === 0 ? 'rgba(0, 0, 0, 0.2)' : 'rgba(113, 237, 27, 1)',
+                            borderColor: ['black'],
+                            borderWidth: 3,
+                            circumference: crosswalkCount === 0 ? 360: crosswalkCount / 6 * 360,
+                        },
+                        {
+                            data: [zonelimitCount],
+                            backgroundColor: zonelimitCount === 0 ? 'rgba(0, 0, 0, 0.2)' : 'rgba(21, 241, 216, 1)',
+                            borderColor: ['black'],
+                            borderWidth: 3,
+                            circumference: zonelimitCount === 0 ? 360: zonelimitCount / 6 * 360,
+                        },
+                    ],
+                };
+
+                const chartData2 = {
+                    // labels: ['A', 'B', 'C'],
+                    datasets: [
+                        {
+                            data: [10],
+                            backgroundColor: [
+                                'rgba(245, 32, 100, 0.2)',
+                            ],
+                            borderColor: [
+                                'black',
+                            ],
+                            borderWidth: 3,
+                            circumference : 360,
+                        },
+                        {
+                            data: [6],
+                            backgroundColor: [
+                                'rgba(113, 237, 27, 0.2)',
+                            ],
+                            borderColor: [
+                                'black',
+                            ],
+                            borderWidth: 3,
+                            circumference : 360,
+                        },
+                        {
+                            data: [6],
+                            backgroundColor: [
+                                'rgba(21, 241, 216, 0.2)',
+                            ],
+                            borderColor: [
+                                'black',
+                            ],
+                            borderWidth: 3,
+                            circumference : 360,
+                        },
+                    ],
+                };
+                    
+
+                    document.getElementById(`roundaboutCount`).textContent = roundaboutCount;
+                    document.getElementById(`zonelimitCount`).textContent = zonelimitCount;
+                    document.getElementById(`crosswalkCount`).textContent = crosswalkCount;
+                    document.getElementById(`roundaboutCountscore`).textContent = roundaboutCount * 100;
+                    document.getElementById(`zonelimitCountscore`).textContent = zonelimitCount * 100;
+                    document.getElementById(`crosswalkCountscore`).textContent = crosswalkCount * 100;
+                    document.getElementById('carcrash').textContent = data.cae_crash;
+                    document.getElementById('carbrake').textContent = data.car_break;
+                    // document.getElementById('datetime').textContent = data.datetime;
+                    document.getElementById('scorelap1round').textContent = round1;
+                    document.getElementById('scorelap1cross').textContent = cross1;
+                    document.getElementById('scorelap1zone').textContent = zone1;
+                    document.getElementById('scorelap2round').textContent = round2;
+                    document.getElementById('scorelap2cross').textContent = cross2;
+                    document.getElementById('scorelap2zone').textContent = zone2;
+                    const chartdata = chartData1;
+                    createChart(chartdata, `myChart`);
+                    const chartdata2 = chartData2;
+                    createChart2(chartdata2, `myChart2`);
+                    createGraph(xValues, data.y_value, `graphchart`);
+        }
+
+        function createChart(chartData, canvasId) {
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            const myChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: chartData,
+            options: {
+                    legend: {
+                        display: false,
+                    },
+                    borderRadius: 10,
+                    reponsive: true,
+                },
+            
+            });
+        }
+
+        // Loop through all elements with class "graph" and create charts
+
+        function createChart2(chartData, canvasId) {
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            const myChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: chartData,
+            options: {
+                    legend: {
+                    display: false,
+                    },
+                    borderRadius: 10,
+                    reponsive: true,
+                },
+            });
+        }   
+
+        function calculateAverage(arr) {
+            let sum = 0;
+            let count = 0;
+
+            for (let i = 0; i < arr.length; i++) {
+                    sum += arr[i];
+                    count++;
+            }
+
+            return sum / 10;
+        }
+
+        function createGraph(xValues, yValues, canvasId) {
+            const ctx = document.getElementById(canvasId).getContext('2d');
+
+            let y = yValues;
+            const chunkSize = 10;
+            let averages = [];
+            for (let i = 0; i < y.length; i += chunkSize) {
+                let chunk = y.slice(i, i + chunkSize);
+                let average = calculateAverage(chunk);
+                averages.push(average);
+            }
+
+            const data = {
+            labels: xValues,
+            datasets: [{
+                    label: 'Player',
+                    data: averages, // Your data points
+                    borderColor: '#6C60FF', // Line color
+                    backgroundColor: '#6C60FF',
+                    borderWidth: 2, // Line width
+                    fill: false, // Fill area under the line (false for line chart)
+                }]
+            };
+
+            const config = {
+            type: 'line',
+            data: data,
+            options: {
+                scales: {
+                x: {
+                    stepSize: 10,
+                    beginAtZero: true, // Set to true to start at 0 on the x-axis
+                    grid: {
+                        color: 'rgba(255, 255, 222, 0)', // Change x-axis grid color
+                        borderColor: 'rgba(255, 255, 222, 1)', // Change x-axis grid border color
+                    },
+                    title: {
+                        display: true,
+                        text: 'Distance (km)',
+                        color: '#FFFFDE', // Change y-axis title color
+                    },
+                    ticks: {
+                        color: '#FFFFDE', // Change x-axis tick color
+                    },
+                },
+                y: {
+                    stepSize: 10,
+                    beginAtZero: true, // Set to true to start at 0 on the y-axis
+                    grid: {
+                        color: 'rgba(255, 255, 222, 0)', // Change x-axis grid color
+                        borderColor: 'rgba(255, 255, 222, 1)', // Change x-axis grid border color
+                    },
+                    title: {
+                        display: true,
+                        text: 'Speed (km/hr)',
+                        color: '#FFFFDE', // Change y-axis title color
+                    },
+                    ticks: {
+                        color: '#FFFFDE', // Change x-axis tick color
+                    },
+                },
+                },
+            },
+            };
+            
+            const myLineChart = new Chart(ctx, config);
+        }
+
+        // Get video elements by their IDs
+        const video1 = document.getElementById('video1');
+        const video2 = document.getElementById('video2');
+
+        // Function to synchronize the videos
+        function synchronizeVideos() {
+            const currentTime1 = video1.currentTime;
+            const currentTime2 = video2.currentTime;
+
+            // Calculate the time difference
+            const timeDifference = currentTime1 - currentTime2;
+
+            // Adjust the other video's current time based on the difference
+            if (Math.abs(timeDifference) > 0.1) { // Adjust only if the difference is significant
+                video2.currentTime += timeDifference;
+            }
+
+            // Call this function recursively to keep them in sync
+            requestAnimationFrame(synchronizeVideos);
+        }
+
+        // Add event listeners to start the synchronization
+        video1.addEventListener('play', () => {
+            if (video2.paused && !video2.ended) {
+                video2.play();
+            }
+            synchronizeVideos();
+        });
+
+        video2.addEventListener('play', () => {
+            if (video1.paused && !video1.ended) {
+                video1.play();
+            }
+            synchronizeVideos();
+        });
+
+        // Add event listeners to pause the synchronization
+        video1.addEventListener('pause', () => {
+            if (!video2.paused && !video2.ended) {
+                video2.pause();
+            }
+            cancelAnimationFrame(synchronizeVideos);
+        });
+
+        video2.addEventListener('pause', () => {
+            if (!video1.paused && !video1.ended) {
+                video1.pause();
+            }
+            cancelAnimationFrame(synchronizeVideos);
+        });
+
+        function setTimestampcrosswalk(label) {
+            const crosswalks1 = setTimestamp_lap1.crosswalk;
+            const crosswalks2 = setTimestamp_lap2.crosswalk;
+
+            if (label >= 1 && label <= 3) {
+                const timestamp = crosswalks1[`crosswalk_${label}`];
+                video1.currentTime = timestamp;
+            } else if (label >= 4 && label <= 6) {
+                const timestamp = crosswalks2[`crosswalk_${label}`];
+                video1.currentTime = timestamp;
+            }
+        }
+
+        function setTimestamproundabout(label) {
+            const roundabout1 = setTimestamp_lap1.roundabout;
+            const roundabout2 = setTimestamp_lap2.roundabout;
+
+            if (label >= 1 && label <= 5) {
+                const timestamp = roundabout1[`roundabout_${label}`];
+                video1.currentTime = timestamp;
+            } else if (label >= 6 && label <= 10) {
+                const timestamp = roundabout2[`roundabout_${label}`];
+                video1.currentTime = timestamp;
+            }
+        }
+
+        function setTimestampzonelimit(label) {
+            const zonelimit1 = setTimestamp_lap1.limit;
+            const zonelimit2 = setTimestamp_lap2.limit;
+
+            if (label >= 1 && label <= 3) {
+                const timestamp = zonelimit1[`limit_${label}`];
+                video1.currentTime = timestamp;
+            } else if (label >= 4 && label <= 6) {
+                const timestamp = zonelimit2[`limit_${label-3}`];
+                video1.currentTime = timestamp;
+            }
+        }
+
+    </script>
+</body>
+
+</html>

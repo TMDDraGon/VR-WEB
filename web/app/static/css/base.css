@@ -1,0 +1,92 @@
+body {
+    background-color: black;
+}
+
+.container{
+    max-width: 100%;
+    --bs-gutter-x: 0rem;
+}
+
+.container {
+  position: relative;
+}
+
+
+.popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1;
+}
+
+.popup-content {
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px #000;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.text{
+  font-family: 'Recursive', monospace;
+  font-weight: 500;
+  color: #ffffde;
+  font-size: 40px;
+  letter-spacing: 0;
+  line-height: normal;
+  text-decoration: none;
+}
+.text2{
+  font-family: 'Recursive', monospace;
+  font-weight: 400;
+  font-size: 24px;
+  letter-spacing: 0;
+  line-height: normal;
+  text-decoration: none;
+}
+
+.text3{
+  font-family: 'Recursive', monospace;
+  font-weight: 400;
+  font-size: 24px;
+  letter-spacing: 0;
+  line-height: normal;
+}
+
+.login-btn{
+  border-radius: 6px;
+  border: 1px solid;
+  border-color: #ffffde;
+  background-color: transparent;
+}
+
+.signup-btn{
+  background-color: #ffffde;
+  border-radius: 6px;
+}
+
+.text-wrapper {
+  font-family: 'Recursive', monospace;
+  font-weight: 400;
+  color: #ffffde;
+  font-size: 20px;
+  letter-spacing: 0;
+  white-space: nowrap;
+  display: block;
+  padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
+}

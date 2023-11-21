@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Recursive&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="static/css/logo_transparent.png" />
+    <title>VR CS</title>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/css/base.css">
+</head>
+
+<body style="background-color: black;">
+    <nav class="navbar navbar-expand-lg" style="background-color: #05204a;">
+        <div class="container-fluid">
+            <a class=" text" href="/">VR</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/scoreboard">Scoreboard</a>
+                    </li>
+                    {% endif %}
+                </ul>
+                <ul class="navbar-nav">
+                    {% if not current_user.is_authenticated %}
+                    <li class="nav-item">
+                        <button class="login-btn">
+                            <a class="text2 nav-link active" id="loginButton" style="color: #ffffde;">Login</a>
+                        </button>
+                    </li>
+                    &times;
+                    <div class="text-wrapper"> or </div>
+                    &times;
+                    <li class="nav-item ">
+                        <button class="signup-btn">
+                        <a class="text3 nav-link active" href="{{url_for('signup')}}" style="color: #05204a;">Sign-up</a>
+                        </button>
+                    </li>
+                    {% endif %}
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item ">
+                        <a href="{{url_for('profile')}}"><img src="{{ url_for('img', filename=current_user.avatar) }}" style="width: 40px;"></a>
+                    </li>
+                    <li class="nav-item">
+                        <button class="signup-btn">
+                        <a class="text3 nav-link active" href="{{url_for('logout')}}"><i class="bi bi-door-open-fill"></i> Logout</a>
+                    </button>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="popup" id="loginPopup">
+        <div class="popup-content">
+            <span class="close" id="closePopup">&times;</span>
+            <h2>Login</h2>
+            <form onsubmit="submitForm_login()">
+                <div class="flash-messages"></div>
+                <label for="username">Username:</label>
+                <input type="text" id="email" name="email" required>
+                <br>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <br>
+                <label for="rememberMe">Remember Me:</label>
+                <input type="checkbox" id="remember" name="remember">
+                <br>
+                <input type="submit" value="Login">
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const loginButton = document.getElementById('loginButton');
+        const loginPopup = document.getElementById('loginPopup');
+        const closePopup = document.getElementById('closePopup');
+
+        // Show the popup when the button is clicked
+        loginButton.addEventListener('click', () => {
+            loginPopup.style.display = 'block';
+        });
+
+        // Close the popup when the close button is clicked
+        closePopup.addEventListener('click', () => {
+            loginPopup.style.display = 'none';
+        });
+
+        // Close the popup when the user clicks outside of it
+        window.addEventListener('click', (event) => {
+            if (event.target === loginPopup) {
+                loginPopup.style.display = 'none';
+            }
+        });
+
+        function submitForm_login() {
+            event.preventDefault();
+
+            const requestData = {
+                email: document.getElementById("email").value,
+                password: document.getElementById("password").value,
+                remember: document.getElementById("remember").checked,
+            };
+
+            fetch("/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(requestData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.message)
+                    if (data.message === 'successfully') {
+                        document.getElementById("email").value = '';
+                        document.getElementById("password").value = '';
+                        window.location.href = data.redirect;
+                    } else {
+                        document.getElementById("flash-messages").innerHTML = data.message;
+                    }
+                });
+        }
+
+    </script>
+    {% block content %}{% endblock %}
+</body>
+
+</html>

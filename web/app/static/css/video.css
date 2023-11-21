@@ -1,0 +1,317 @@
+body {
+  background-color: black;
+  color: #ffffde;
+  font-family: 'Recursive';
+}
+
+button.lap {
+  background: none;
+  border: none;
+  margin-top: 15px;
+}
+
+button.lapcross {
+  background: none;
+  border: none;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+}
+
+button.lapzone {
+  background: none;
+  border: none;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+}
+
+
+div.lapbox {
+  background-color: #000000;
+  border-radius: 10px;
+  margin-left: 20px;
+  color: #ffffde;
+}
+
+div.blackborder {
+  border: 2px solid black;
+  color: black;
+}
+
+div.box1 {
+  background-color: #ffffde;
+  border-radius: 10px;
+  padding-left: 50px;
+  padding-right: 50px;
+}
+
+div.box-change {
+   display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+  padding: 10px; /* Adjust the padding to your desired size */
+  border-radius: 10px; /* Adjust the border-radius to make corners less rounded */
+  
+  
+}
+
+div.box-data {
+  align-items: center;
+  justify-content: space-around;
+  background-color: white;
+  border-radius: 50px;
+  color: black;
+
+}
+
+span#scorelap1round, #scorelap2round, #scorelap1cross, #scorelap2cross, #scorelap1zone, #scorelap2zone {
+  color: #828500;
+  font-size: 24px;
+}
+
+/* div.box-data1 {
+  align-items: center;
+  justify-content: space-around;
+  background-color: white;
+  border-radius: 50px;
+  color: black;
+
+}
+div.box-data2 {
+  align-items: center;
+  justify-content: space-around;
+  background-color: white;
+  border-radius: 50px;
+  color: black;
+
+} */
+
+.black-btn-click {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  background-color: #000000;
+  border-radius: 100px;
+}
+
+.black-btn-click .icon-arrow {
+  position: absolute;
+  width: 65px;
+  height: 62px;
+  top: 20px;
+  left: 18px;
+}
+
+.white-btn-click {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  background-color: #ffffde;
+  border-color: #ffffde;
+  border-radius: 100px;
+}
+
+.white-btn-click .icon-arrow {
+  position: absolute;
+  width: 65px;
+  height: 62px;
+  top: 20px;
+  left: 18px;
+}
+
+a.backbutton {
+  background-color: black;
+  color: #ffffde;
+  border-radius: 10px;
+  margin-top: 20px;
+  margin-left: 20px;
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+img.img-profile {
+  width: 100%;
+  max-width: 60px;
+  height: auto;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.custom-navbar {
+  border-radius: 20px;
+  background: #05204A;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+a.navbar-brand {
+  color: #ffffde;
+  font-size: 40px;
+}
+
+h3.datetime {
+  font-size: 30px;
+  color: black;
+  margin-right: 50px;
+  margin-top: 30px;
+}
+
+.video-container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+video {
+  border-radius: 20px;
+}
+
+div.chart-container {
+  background-color: black;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+video#video1 {
+  width: 100%;
+  max-width: 1214px;
+  height: auto;
+}
+
+video#video2 {
+  width: 100%;
+  max-width: 1074px;
+  height: auto;
+}
+
+div.box-black {
+  border-radius: 20px;
+  background-color: black;
+  margin-top: 20px;
+  padding: 10px;
+  padding-right: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+div.box-white {
+  background-color: #FFFFF7;
+  border-radius: 20px;
+  color: black;
+}
+
+label.switch {
+  position: relative;
+  display: inline-block;
+  width: 110px;
+  height: 60px;
+  margin: 0px 10px;
+}
+
+span.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ffffde;
+  border-radius: 34px;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+label.switch input {display: none;}
+
+div.maptest {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+span.score {
+  color: #828500;
+}
+
+span.slider::before {
+  position: absolute;
+  content: "";
+  height: 50px;
+  width: 50px;
+  left: 5px;
+  bottom: 5px;
+  background-color: #000000;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+
+input:checked + span.slider {
+  background-color: #ffffde;
+}
+
+input:checked + span.slider::before {
+  transform: translateX(50px);
+}
+
+div.LAB {
+  font-size: 40px;
+}
+
+label.head {
+  font-size: 20px;
+}
+
+button.button-roundabout, button.button-crosswalk, button.button-zonelimit {
+  background-color: #ffffde;
+  border-color: #ffffde;
+  border-radius: 50%;
+}
+
+div.chartBox {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  
+}
+
+canvas.chart1 {
+  position: absolute;
+  width: 100%;
+  max-width: 600px;
+  height: 210px;
+  overflow: hidden;
+  z-index: 1;
+  
+}
+
+canvas.chart2 {
+  width: 100%;
+  max-width: 600px;
+  height: 210px;
+  overflow: hidden;
+  z-index: 0;
+}
+
+span#roundaboutCountscore, #crosswalkCountscore, #zonelimitCountscore {
+  font-size: 30px;
+}
+
+label.maxscore {
+  font-size: 30px;
+  color: #256700;
+}
+
+
+

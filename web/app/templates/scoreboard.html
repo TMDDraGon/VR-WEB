@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Recursive&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="static/css/logo_transparent.png" />
+    <title>VR CS</title>
+    <script type="module" src="https://unpkg.com/@splinetool/viewer@0.9.446/build/spline-viewer.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.js" integrity="sha512-uLlukEfSLB7gWRBvzpDnLGvzNUluF19IDEdUoyGAtaO0MVSBsQ+g3qhLRL3GTVoEzKpc24rVT6X1Pr5fmsShBg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/css/scoreboard.css">
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-light custom-navbar">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">VRacer</a>
+                <div class="d-flex justify-content-md-end">
+                    <div class="p-2 flex-fill bd-highlight">
+                        <a href="{{url_for('profile')}}"><img src="{{ url_for('img', filename=current_user.avatar) }}" style="width: 40px; border-radius: 50%;"></a>
+                    </div>
+                    
+                    <div class="d-flex align-items-center">
+                        <label class="textusername"> {{ current_user.username }} </label>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div class="row">
+            <div class="d-flex bd-highlight mb-3">
+                <div class="p-2 bd-highlight">
+                    <div class="box">
+                        <a class="changebox" id="show-myscore">
+                            <span class="text">My score</span>
+                        </a>
+                        <a class="changebox" id="show-topscore">
+                            <span class="text">Top rank</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="p-2 bd-highlight">
+
+                </div>
+                <div class="ms-auto p-2 bd-highlight">
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="static/img/web/icon _signal_.svg" class="signal" id="src">
+                            <label class="text" id="text">Score</label>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li>
+                                <a class="dropdown-item" >
+                                    <img src="static/img/web/icon _signal_.svg" class="icondrop">
+                                    Score
+                                </a>
+                            </li>
+                            <li id="sortdate">
+                                <a class="dropdown-item" >
+                                    <img src="static/img/web/icon _calendar_.svg" class="icondrop">
+                                    Date
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" >
+                                    <img src="static/img/web/clock.svg" class="icondrop">
+                                    Time
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" >
+                                    <img src="static/img/web/icon _Alternate Tachometer_.svg" class="icondrop">
+                                    Speed
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="myscore-form">
+            <div class="col-md-12">
+                <table class="styled-table" id="score-table">
+                    <thead>
+                        <tr class="head">
+                            <th class="headtable">Date</th>
+                            <th class="headtable">My ranking</th>
+                            <th class="headtable">Time</th>
+                            <th class="headtable">Score</th>
+                            <th class="headtable">AVG Speed</th>
+                            <th class="headtable"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for detail in details %}
+                            <tr class="data">
+                                <td>{{ detail.datetime }}</td>
+                                <td>{{ detail.rank }}</td>
+                                <td>{{ detail.time }}</td>
+                                <td>{{ detail.score }}</td>
+                                <td>{{ detail.speed }}</td>
+                                <td>
+                                    <button class="toggleButton" id="toggleButtonID" data-value="1" data-id="{{ detail.id }}" onclick="toggleItemCom(this); showtoggle(this);">Toggle Item</button>
+                                </td>
+                            </tr>
+                            <tr class="data hello-row" data-id="{{ detail.id }}" style="display: none;">
+                                <td colspan="6" style="padding-left: 20px; padding-right: 20px; padding-bottom: 20px;">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="box-black">
+                                                <canvas class="graph" id="graphchart_{{ detail.id }}" style="width:100%;max-width:600px; height: 210px;"></canvas>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="box-black">
+                                                <div class="chart-container">
+                                                    <div class="row">
+                                                        <div class="col-md-6" style="padding-top: 10px; padding-bottom: 10px;">
+                                                            <div>
+                                                                <label style="color: white;">Circus</label>
+                                                            </div>
+                                                            <div style="color: #F52064;">
+                                                                <span id="roundaboutCount_{{ detail.id }}"></span><label>/10CIRCLE</label>
+                                                            </div>
+                                                            <div>
+                                                                <label style="color: white">Speed limit</label>
+                                                            </div>
+                                                            <div  style="color: #15F1D8;">
+                                                                <span id="zonelimitCount_{{ detail.id }}"></span><label>/6ZONE</label>
+                                                            </div>
+                                                            <div>
+                                                                <label style="color: white;">Crosswalk</label>
+                                                            </div>
+                                                            <div style="color: #71ED1B;">
+                                                                <span id="crosswalkCount_{{ detail.id }}"></span><label>/6CROSS</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="chartBox">
+                                                                <canvas id="myChart_{{ detail.id }}" class="chart1"></canvas>
+                                                                <canvas id="myChart2_{{ detail.id }}" class="chart2"></canvas>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6" style="color: white;">
+                                                                <div>
+                                                                    Crash
+                                                                </div>
+                                                                <div>
+                                                                    {{ detail.crash_car }}
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6" style="color: white;">
+                                                                <div>
+                                                                    Brake
+                                                                </div>
+                                                                <div>
+                                                                    {{ detail.carbreak }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="box-black" style="color: white;">
+                                                <a href="/video/{{ detail.id }}" class="moredetail">more detail</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            {% endfor %}
+
+                    </tbody>                      
+                </table>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        {% if prev_num %}
+                        <li class="page-item">
+                            <a class="page-link" type="button" onclick="updatescore('{{prev_num}}')">&laquo;</a>
+                        </li>
+                        {% endif %}
+
+                        {% for page_num in pagination %}
+                        {% if page_num %}
+                        {% if page == page_num %}
+                        <li class="page-item active">
+                            <a class="page-link">{{ page_num }}</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item">
+                            <a class="page-link" type="button" onclick="updatescore('{{page_num}}')">{{ page_num }}</a>
+                        </li>
+                        {% endif %}
+                        {% else %}
+                        <li class="page-item disabled">
+                            <a class="page-link">...</a>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+
+                        {% if next_num %}
+                        <li class="page-item">
+                            <a class="page-link" type="button" onclick="updatescore('{{next_num}}')">&raquo;</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="row" id="topscore-form" hidden="hidden">
+            <div class="col-12">
+                <table class="styled-table" id="score-top" style="color: white;">
+                    <thead>
+                    <tr class="head">
+                        <th class="headtable">Ranking</th>
+                        <th class="headtable">Name</th>
+                        <th class="headtable">Time</th>
+                        <th class="headtable">Score</th>
+                        <th class="headtable">AVG Speed</th>
+                        <th class="headtable"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for top in game_top %}
+                    <tr class="data">
+                        <td>{{ top.rank }}</td>
+                        <td>{{ top.username }}</td>
+                        <td>{{ top.time }}</td>
+                        <td>{{ top.score }}</td>
+                        <td>{{ top.speed }}</td>
+                        <td>
+                            <button class="toggleButton" data-id="{{ top.id }}" onclick="toggleItemCom2(this); showtoggle(this);">Toggle Item</button>
+                        </td>
+                    </tr>
+                    <tr class="data hello-row" data-id="{{ top.id }}" style="display: none;">
+                        <td colspan="6" style="padding-left: 20px; padding-right: 20px; padding-bottom: 20px;">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="box-black">
+                                        <canvas class="graph" id="graphchart2_{{ top.id }}" style="width:100%;max-width:600px; height: 210px;"></canvas>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="box-black">
+                                        <div class="chart-container">
+                                            <div class="row">
+                                                <div class="col-md-6" style="padding-top: 10px; padding-bottom: 10px;">
+                                                    <div>
+                                                        <label style="color: white;">Circus</label>
+                                                    </div>
+                                                    <div style="color: #F52064;">
+                                                        <span id="roundaboutCount2_{{ top.id }}"></span><label>/10CIRCLE</label>
+                                                    </div>
+                                                    <div>
+                                                        <label style="color: white">Speed limit</label>
+                                                    </div>
+                                                    <div  style="color: #15F1D8;">
+                                                        <span id="zonelimitCount2_{{ top.id }}"></span><label>/6ZONE</label>
+                                                    </div>
+                                                    <div>
+                                                        <label style="color: white;">Crosswalk</label>
+                                                    </div>
+                                                    <div style="color: #71ED1B;">
+                                                        <span id="crosswalkCount2_{{ top.id }}"></span><label>/6CROSS</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="chartBox">
+                                                        <canvas id="myChart3_{{ top.id }}" class="chart1"></canvas>
+                                                        <canvas id="myChart4_{{ top.id }}" class="chart2"></canvas>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6" style="color: white;">
+                                                        <div>
+                                                            Crash
+                                                        </div>
+                                                        <div>
+                                                            {{ top.crash_car }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6" style="color: white;">
+                                                        <div>
+                                                            Brake
+                                                        </div>
+                                                        <div>
+                                                            {{ top.carbreak }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="box-black" style="color: white;">
+                                        <a href="/video/{{ top.id }}" class="moredetail">more detail</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+
+        function calculateAverage(arr) {
+            let sum = 0;
+            let count = 0;
+
+            for (let i = 0; i < arr.length; i++) {
+                    sum += arr[i];
+                    count++;
+            }
+
+            return sum / 10;
+        }
+
+        function createGraph(xValues, yValues, canvasId) {
+            const ctx = document.getElementById(canvasId).getContext('2d');
+
+            let y = yValues;
+            const chunkSize = 10;
+            let averages = [];
+            for (let i = 0; i < y.length; i += chunkSize) {
+                let chunk = y.slice(i, i + chunkSize);
+                let average = calculateAverage(chunk);
+                averages.push(average);
+            }
+
+            const data = {
+            labels: xValues,
+            datasets: [{
+                    label: 'Player',
+                    data: averages, // Your data points
+                    borderColor: '#6C60FF', // Line color
+                    backgroundColor: '#6C60FF',
+                    borderWidth: 2, // Line width
+                    fill: false, // Fill area under the line (false for line chart)
+                }]
+            };
+
+            const config = {
+            type: 'line',
+            data: data,
+            options: {
+                scales: {
+                x: {
+                    stepSize: 10,
+                    beginAtZero: true, // Set to true to start at 0 on the x-axis
+                    grid: {
+                        color: 'rgba(255, 255, 222, 0)', // Change x-axis grid color
+                        borderColor: 'rgba(255, 255, 222, 1)', // Change x-axis grid border color
+                    },
+                    title: {
+                        display: true,
+                        text: 'Distance (km)',
+                        color: '#FFFFDE', // Change y-axis title color
+                    },
+                    ticks: {
+                        color: '#FFFFDE', // Change x-axis tick color
+                    },
+                },
+                y: {
+                    stepSize: 10,
+                    beginAtZero: true, // Set to true to start at 0 on the y-axis
+                    grid: {
+                        color: 'rgba(255, 255, 222, 0)', // Change x-axis grid color
+                        borderColor: 'rgba(255, 255, 222, 1)', // Change x-axis grid border color
+                    },
+                    title: {
+                        display: true,
+                        text: 'Speed (km/hr)',
+                        color: '#FFFFDE', // Change y-axis title color
+                    },
+                    ticks: {
+                        color: '#FFFFDE', // Change x-axis tick color
+                    },
+                },
+                },
+            },
+            };
+            
+            const myLineChart = new Chart(ctx, config);
+        }
+
+
+        function toggleItemCom(button) {
+            var id = button.getAttribute("data-id");
+            const element = document.getElementById("toggleButtonID");
+            const npage = element.getAttribute("data-value");
+            const requestData = {
+                sortscore: selected,
+                page: npage,
+            };
+            fetch("/toggleid", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(requestData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(npage);
+                    if (data.message === 'successfully updated') {
+                        console.log(data.details);
+                        toggleItem(data.details, id);
+
+                    } else {
+                        console.log("updatescore not work");
+                    }
+                });
+        }
+
+        function toggleItemCom2(button) {
+            var id = button.getAttribute("data-id");
+            const requestData = {
+                sortscore: selected
+            };
+            fetch("/toggleidtop", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(requestData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message === 'successfully') {
+                        toggleItem2(data.game_top, id);
+                        console.log("Pass TOP");
+                    } else {
+                        console.log("updatetopscore not work");
+                    }
+                });
+        }
+        
+        function showtoggle(button) {
+            var toggleButtons = document.querySelectorAll(".toggleButton");
+            var length = Object.keys(toggleButtons).length;
+            if (length > 10) {
+                length -= 10;
+            }
+            console.log(length);
+            for (let i = 0; i < 10; i++) {
+                var helloRow = button.parentElement.parentElement.nextElementSibling;
+                var id = button.getAttribute("data-id");
+                var isHelloRowVisible = helloRow.style.display === "table-row";
+                var helloRows = document.querySelectorAll(".hello-row");
+                
+                helloRows.forEach(function(row) {
+                    if (id === row.getAttribute("data-id") && !isHelloRowVisible) {
+                        row.style.display = "table-row";
+                    } else {
+                        row.style.display = "none";
+                    }
+                });
+
+                if (id === helloRow.getAttribute("data-id") && !isHelloRowVisible) {
+                    break;
+                } else {
+                    helloRow.getAttribute("data-id").style.display = "none";
+                }
+                
+            }
+        }
+
+        function closetoggle() {
+
+            for (let i = 0; i < 10; i++) {
+                var helloRows = document.querySelectorAll(".hello-row");
+                
+                helloRows.forEach(function(row) {
+                        row.style.display = "none";
+                });
+ 
+            }
+        }
+        
+        function toggleItem(data, ids) {
+            
+            const xValues = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+            let roundabout = [];
+            let crosswalk = [];
+            let zonelimit = [];
+            let y_values = [];
+
+            data.forEach((detail, index) => {
+                if (detail.id === ids) {
+                    for (let i = 0; i < 10; i++) {
+                        roundabout.push(detail.roundabout[i]);
+                    }
+
+                    for (let i = 0; i < 6; i++) {
+                        crosswalk.push(detail.crosswalk[i]);
+                        zonelimit.push(detail.zonelimit[i]);
+                    }
+
+                    for (let i = 0; i < detail.y_value.length; i++) {
+                        y_values[i] = detail.y_value[i];
+                    }
+                }
+                
+            });
+
+                let roundaboutCount = 0;
+                let zonelimitCount = 0;
+                let crosswalkCount = 0;
+                
+                console.log("id:", ids);
+                
+                for (let i = 0; i < 10; i++) {
+                    if (roundabout[i] === 1) {
+                        roundaboutCount++;
+                    }
+                }
+
+                for (let i = 0; i < 2; i++) {
+                    for (let j = 0; j < 3; j++) {
+                        if (i === 2) {
+                            if (zonelimit[i][j] <= 60) {
+                                zonelimitCount++;
+                            }
+                        } else {
+                            if (zonelimit[i][j] <= 40) {
+                                zonelimitCount++;
+                            }
+                        }
+                    }
+                }
+
+                
+                for (let i = 0; i < 6; i++) {
+                    if (crosswalk[i] === 1) {
+                        crosswalkCount++;
+                    }
+                }
+
+                const chartData1 = {
+                    // labels: ['A', 'B', 'C'],
+                    datasets: [
+                        {
+                            data: [roundaboutCount],
+                            backgroundColor: roundaboutCount === 0 ? 'rgba(0, 0, 0, 0.2)' : 'rgba(245, 32, 100, 1)',
+                            borderColor: ['black'],
+                            borderWidth: 3,
+                            circumference: roundaboutCount === 0 ? 360: roundaboutCount / 10 * 360,
+                        },
+                        {
+                            data: [crosswalkCount],
+                            backgroundColor: crosswalkCount === 0 ? 'rgba(0, 0, 0, 0.2)' : 'rgba(113, 237, 27, 1)',
+                            borderColor: ['black'],
+                            borderWidth: 3,
+                            circumference: crosswalkCount === 0 ? 360: crosswalkCount / 6 * 360,
+                        },
+                        {
+                            data: [zonelimitCount],
+                            backgroundColor: zonelimitCount === 0 ? 'rgba(0, 0, 0, 0.2)' : 'rgba(21, 241, 216, 1)',
+                            borderColor: ['black'],
+                            borderWidth: 3,
+                            circumference: zonelimitCount === 0 ? 360: zonelimitCount / 6 * 360,
+                        },
+                    ],
+                };
+
+                const chartData2 = {
+                    // labels: ['A', 'B', 'C'],
+                    datasets: [
+                        {
+                            data: [10],
+                            backgroundColor: [
+                                'rgba(245, 32, 100, 0.2)',
+                            ],
+                            borderColor: [
+                                'black',
+                            ],
+                            borderWidth: 3,
+                            circumference : 360,
+                        },
+                        {
+                            data: [6],
+                            backgroundColor: [
+                                'rgba(113, 237, 27, 0.2)',
+                            ],
+                            borderColor: [
+                                'black',
+                            ],
+                            borderWidth: 3,
+                            circumference : 360,
+                        },
+                        {
+                            data: [6],
+                            backgroundColor: [
+                                'rgba(21, 241, 216, 0.2)',
+                            ],
+                            borderColor: [
+                                'black',
+                            ],
+                            borderWidth: 3,
+                            circumference : 360,
+                        },
+                    ],
+                };  
+                    
+                    
+                    let existingChart = Chart.getChart(`myChart_${ids}`);
+                    let existingChart2 = Chart.getChart(`myChart2_${ids}`);
+                    if (existingChart) {
+                        existingChart.destroy(); // Destroy the first chart
+                    } 
+
+                    if (existingChart2) {
+                        existingChart2.destroy(); // Destroy the second chart
+                    }
+                    const chartdata = chartData1;
+                    createChart(chartdata, `myChart_${ids}`);
+                    const chartdata2 = chartData2;
+                    createChart2(chartdata2, `myChart2_${ids}`);
+                    document.getElementById(`roundaboutCount_${ids}`).textContent = roundaboutCount;
+                    document.getElementById(`zonelimitCount_${ids}`).textContent = zonelimitCount;
+                    document.getElementById(`crosswalkCount_${ids}`).textContent = crosswalkCount;
+
+                    let existingGraphChart = Chart.getChart(`graphchart_${ids}`);
+                    if (existingGraphChart) {
+                        existingGraphChart.destroy();
+                    }
+                    createGraph(xValues, y_values, `graphchart_${ids}`);
+        
+        }
+
+        function toggleItem2(data, ids) {
+            const xValues = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+            let roundabout = [];
+            let crosswalk = [];
+            let zonelimit = [];
+            let y_values = [];
+
+            data.forEach((detail, index) => {
+                if (detail.id === ids) {
+                    for (let i = 0; i < 10; i++) {
+                        roundabout.push(detail.roundabout[i]);
+                    }
+
+                    for (let i = 0; i < 6; i++) {
+                        crosswalk.push(detail.crosswalk[i]);
+                        zonelimit.push(detail.zonelimit[i]);
+                    }
+
+                    for (let i = 0; i < detail.y_value.length; i++) {
+                        y_values[i] = detail.y_value[i];
+                    }
+                }
+        
+            });
+
+                let roundaboutCount = 0;
+                let zonelimitCount = 0;
+                let crosswalkCount = 0;
+                
+                
+                for (let i = 0; i < 10; i++) {
+                    if (roundabout[i] === 1) {
+                        roundaboutCount++;
+                    }
+                }
+
+                for (let i = 0; i < 2; i++) {
+                    for (let j = 0; j < 3; j++) {
+                        if (i === 2) {
+                            if (zonelimit[i][j] <= 60) {
+                                zonelimitCount++;
+                            }
+                        } else {
+                            if (zonelimit[i][j] <= 40) {
+                                zonelimitCount++;
+                            }
+                        }
+                    }
+                }
+
+                
+                for (let i = 0; i < 6; i++) {
+                    if (crosswalk[i] === 1) {
+                        crosswalkCount++;
+                    }
+                }
+                
+                const chartData3 = {
+                    // labels: ['A', 'B', 'C'],
+                    datasets: [
+                        {
+                            data: [roundaboutCount],
+                            backgroundColor: roundaboutCount === 0 ? 'rgba(0, 0, 0, 0.2)' : 'rgba(245, 32, 100, 1)',
+                            borderColor: ['black'],
+                            borderWidth: 3,
+                            circumference: roundaboutCount === 0 ? 360: roundaboutCount / 10 * 360,
+                        },
+                        {
+                            data: [crosswalkCount],
+                            backgroundColor: crosswalkCount === 0 ? 'rgba(0, 0, 0, 0.2)' : 'rgba(113, 237, 27, 1)',
+                            borderColor: ['black'],
+                            borderWidth: 3,
+                            circumference: crosswalkCount === 0 ? 360: crosswalkCount / 6 * 360,
+                        },
+                        {
+                            data: [zonelimitCount],
+                            backgroundColor: zonelimitCount === 0 ? 'rgba(0, 0, 0, 0.2)' : 'rgba(21, 241, 216, 1)',
+                            borderColor: ['black'],
+                            borderWidth: 3,
+                            circumference: zonelimitCount === 0 ? 360: zonelimitCount / 6 * 360,
+                        },
+                    ],
+                };;
+
+                const chartData4 = {
+                    // labels: ['A', 'B', 'C'],
+                    datasets: [
+                        {
+                            data: [10],
+                            backgroundColor: [
+                                'rgba(245, 32, 100, 0.2)',
+                            ],
+                            borderColor: [
+                                'black',
+                            ],
+                            borderWidth: 3,
+                            circumference : 360,
+                        },
+                        {
+                            data: [6],
+                            backgroundColor: [
+                                'rgba(113, 237, 27, 0.2)',
+                            ],
+                            borderColor: [
+                                'black',
+                            ],
+                            borderWidth: 3,
+                            circumference : 360,
+                        },
+                        {
+                            data: [6],
+                            backgroundColor: [
+                                'rgba(21, 241, 216, 0.2)',
+                            ],
+                            borderColor: [
+                                'black',
+                            ],
+                            borderWidth: 3,
+                            circumference : 360,
+                        },
+                    ],
+                };
+                    
+                    let existingChart3 = Chart.getChart(`myChart3_${ids}`);
+                    let existingChart4 = Chart.getChart(`myChart4_${ids}`);
+                    if (existingChart3) {
+                        console.log("Chart3");
+                        existingChart3.destroy(); // Destroy the first chart
+                    }
+                    if (existingChart4) {
+                        console.log("Chart4");
+                        existingChart4.destroy(); // Destroy the second chart
+                    }
+
+                    document.getElementById(`roundaboutCount2_${ids}`).textContent = roundaboutCount;
+                    document.getElementById(`zonelimitCount2_${ids}`).textContent = zonelimitCount;
+                    document.getElementById(`crosswalkCount2_${ids}`).textContent = crosswalkCount;
+                    const chartdata3 = chartData3;
+                    createChart(chartdata3, `myChart3_${ids}`);
+                    const chartdata4 = chartData4;
+                    createChart2(chartdata4, `myChart4_${ids}`);;
+
+                    let existingGraphChart = Chart.getChart(`graphchart2_${ids}`);
+                    if (existingGraphChart) {
+                        existingGraphChart.destroy();
+                    }
+                    createGraph(xValues, y_values, `graphchart2_${ids}`);
+        }
+        // Update the HTML elements with the counts
+
+        function createChart(chartData, canvasId) {
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            console.log(ctx)
+            const myChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: chartData,
+            options: {
+                    legend: {
+                        display: false,
+                    },
+                    borderRadius: 10,
+                    reponsive: true,
+                },
+            
+            });
+        }
+
+        // Loop through all elements with class "graph" and create charts
+
+        function createChart2(chartData, canvasId) {
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            const myChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: chartData,
+            options: {
+                    legend: {
+                    display: false,
+                    },
+                    reponsive: true,
+                },
+            });
+        }
+
+        function createChart3(chartData, canvasId) {
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            const myChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: chartData,
+            options: {
+                    legend: {
+                        display: false,
+                    },
+                    borderRadius: 10,
+                    reponsive: true,
+                },
+            
+            });
+        }
+
+        // Loop through all elements with class "graph" and create charts
+
+        function createChart4(chartData, canvasId) {
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            const myChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: chartData,
+            options: {
+                    legend: {
+                    display: false,
+                    },
+                    reponsive: true,
+                },
+            });
+        }
+    
+        function toggleView() {
+            if ($('#myscore-form').attr('hidden')) {
+                $('#myscore-form').removeAttr('hidden');
+                $('#sortdate').removeAttr('hidden', 'hidden')
+                $('#topscore-form').attr('hidden', 'hidden');
+            } else {
+                $('#myscore-form').attr('hidden', 'hidden');
+                $('#topscore-form').removeAttr('hidden');
+                $('#sortdate').attr('hidden', 'hidden')
+            }
+        }
+
+        $("#show-myscore").click(function () {
+            if ($('#myscore-form').attr('hidden')) {
+                toggleView();
+                closetoggle();
+            }
+        });
+
+        $("#show-topscore").click(function () {
+            if ($('#topscore-form').attr('hidden')) {
+                toggleView();
+                closetoggle();
+            }
+        });
+
+        var dropdownMenu = document.querySelector('.dropdown-menu');
+        var selected = 'Score'
+        var page = 1
+
+        dropdownMenu.addEventListener('click', function (event) {
+            if (event.target && event.target.matches('.dropdown-item')) {
+                
+                selected = event.target.textContent.trim();
+                const visibleForm = getVisibleForm();
+                updateDropdown()
+                if (visibleForm === 'myscore-form') {
+                    updatescore(1)
+                } else if (visibleForm === 'topscore-form') {
+                    console.log("SUS")
+                    updatescoreTop()
+                    // updatescore(1)
+                    console.log("SUS")
+                } else {
+                    console.log('Both forms are hidden.');
+                }
+            }
+        });
+
+        function getVisibleForm() {
+            const myScoreForm = document.getElementById('myscore-form');
+            const topScoreForm = document.getElementById('topscore-form');
+
+            if (!myScoreForm.hasAttribute('hidden')) {
+                return 'myscore-form';
+            } else if (!topScoreForm.hasAttribute('hidden')) {
+                return 'topscore-form';
+            } else {
+                return null;
+            }
+        }
+
+        function updatescore(npage) {
+            const requestData = {
+                sortscore: selected,
+                page: npage,
+            };
+            fetch("/updatescore", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(requestData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.page);
+                    if (data.message === 'successfully updated') {
+                        updateScoresTable(data.details, data.page)
+                        updatePagination(data.pagination, data.page, data.next_num, data.prev_num, data.prev_num);
+
+                    } else {
+                        console.log("updatescore not work");
+                    }
+                });
+        }
+
+        function updatescoreTop() {
+            const requestData = {
+                sortscore: selected,
+            };
+            fetch("/topscore", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(requestData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message === 'successfully') {
+                        updateScoresTableTop(data.game_top)
+                    } else {
+                        console.log(data.message)
+                    }
+                });
+        }
+
+
+        function updateScoresTable(data, npage) {
+            const tableBody = document.querySelector('#score-table tbody');
+            tableBody.innerHTML = '';
+            console.log('npage', npage);
+            const existingRows = tableBody.querySelectorAll('tr');
+            data.forEach((detail, index) => {
+                // Create a new row element
+                const newRow = document.createElement('tr');
+                newRow.classList.add('data');
+                newRow.innerHTML = `
+                    <td>${detail.datetime}</td>
+                    <td>${detail.rank}</td>
+                    <td>${detail.time}</td>
+                    <td>${detail.score}</td>
+                    <td>${detail.speed}</td>
+                    <td>
+                        <button class="toggleButton" id="toggleButtonID" data-id="${detail.id}" data-value="${npage}" onclick="toggleItemCom(this); showtoggle(this);">Toggle Item</button>
+                    </td>
+                `;
+                // Append the new row to the table body
+                tableBody.appendChild(newRow);
+
+                const additionalRowHTML = `
+                    <tr class="data hello-row" data-id="${ detail.id }" style="display: none;">
+                                    <td colspan="6" style="padding-left: 20px; padding-right: 20px; padding-bottom: 20px;">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="box-black">
+                                                    <canvas class="graph" id="graphchart_${ detail.id }" style="width:100%;max-width:600px; height: 210px;"></canvas>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="box-black">
+                                                    <div class="chart-container">
+                                                        <div class="row">
+                                                            <div class="col-md-6" style="padding-top: 10px; padding-bottom: 10px;">
+                                                                <div>
+                                                                    <label style="color: white;">Circus</label>
+                                                                </div>
+                                                                <div style="color: #F52064;">
+                                                                    <span id="roundaboutCount_${ detail.id }"></span><label>/10CIRCLE</label>
+                                                                </div>
+                                                                <div>
+                                                                    <label style="color: white">Speed limit</label>
+                                                                </div>
+                                                                <div  style="color: #15F1D8;">
+                                                                    <span id="zonelimitCount_${ detail.id }"></span><label>/6ZONE</label>
+                                                                </div>
+                                                                <div>
+                                                                    <label style="color: white;">Crosswalk</label>
+                                                                </div>
+                                                                <div style="color: #71ED1B;">
+                                                                    <span id="crosswalkCount_${ detail.id }"></span><label>/6CROSS</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="chartBox">
+                                                                    <canvas id="myChart_${ detail.id }" class="chart1"></canvas>
+                                                                    <canvas id="myChart2_${ detail.id }" class="chart2"></canvas>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6" style="color: white;">
+                                                                    <div>
+                                                                        Crash
+                                                                    </div>
+                                                                    <div>
+                                                                        ${ detail.crash_car }
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6" style="color: white;">
+                                                                    <div>
+                                                                        Brake
+                                                                    </div>
+                                                                    <div>
+                                                                        ${ detail.carbreak }
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="box-black" style="color: white;">
+                                                    <a href="/video/${ detail.id }" class="moredetail">more detail</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                `;
+
+            // Insert the additional row after the new row
+                newRow.insertAdjacentHTML('afterend', additionalRowHTML);
+
+                console.log(`Row ${index + 1}: ${detail.id}, ${detail.rank}, ${detail.time}, ...`);
+            });
+
+            if (existingRows.length > data.length) {
+                for (let i = data.length; i < existingRows.length / 2; i++) {
+                    existingRows[i * 2].style.display = 'none';
+                }
+            }
+        }
+
+
+        function updateScoresTableTop(data) {
+            const tableBody = document.querySelector('#score-top tbody');
+            console.log(tableBody);
+            tableBody.innerHTML = '';
+            const existingRows = tableBody.querySelectorAll('tr');
+            data.forEach((detail, index) => {
+                // Create a new row element
+                const newRow = document.createElement('tr');
+                newRow.classList.add('data');
+                newRow.innerHTML = `
+                    <td>${detail.rank}</td>
+                    <td>${detail.username}</td>
+                    <td>${detail.time}</td>
+                    <td>${detail.score}</td>
+                    <td>${detail.speed}</td>
+                    <td>
+                        <button class="toggleButton" id="toggleButtonID" data-id="${detail.id}" " onclick="toggleItemCom2(this); showtoggle(this);">Toggle Item</button>
+                    </td>
+                `;
+                // Append the new row to the table body
+                tableBody.appendChild(newRow);
+
+                const additionalRowHTML = `
+                    <tr class="data hello-row" data-id="${ detail.id }" style="display: none;">
+                                    <td colspan="6" style="padding-left: 20px; padding-right: 20px; padding-bottom: 20px;">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="box-black">
+                                                    <canvas class="graph" id="graphchart2_${ detail.id }" style="width:100%;max-width:600px; height: 210px;"></canvas>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="box-black">
+                                                    <div class="chart-container">
+                                                        <div class="row">
+                                                            <div class="col-md-6" style="padding-top: 10px; padding-bottom: 10px;">
+                                                                <div>
+                                                                    <label style="color: white;">Circus</label>
+                                                                </div>
+                                                                <div style="color: #F52064;">
+                                                                    <span id="roundaboutCount2_${ detail.id }"></span><label>/10CIRCLE</label>
+                                                                </div>
+                                                                <div>
+                                                                    <label style="color: white">Speed limit</label>
+                                                                </div>
+                                                                <div  style="color: #15F1D8;">
+                                                                    <span id="zonelimitCount2_${ detail.id }"></span><label>/6ZONE</label>
+                                                                </div>
+                                                                <div>
+                                                                    <label style="color: white;">Crosswalk</label>
+                                                                </div>
+                                                                <div style="color: #71ED1B;">
+                                                                    <span id="crosswalkCount2_${ detail.id }"></span><label>/6CROSS</label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="chartBox">
+                                                                    <canvas id="myChart3_${ detail.id }" class="chart1"></canvas>
+                                                                    <canvas id="myChart4_${ detail.id }" class="chart2"></canvas>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6" style="color: white;">
+                                                                    <div>
+                                                                        Crash
+                                                                    </div>
+                                                                    <div>
+                                                                        ${ detail.crash_car }
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6" style="color: white;">
+                                                                    <div>
+                                                                        Brake
+                                                                    </div>
+                                                                    <div>
+                                                                        ${ detail.carbreak }
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="box-black" style="color: white;">
+                                                    <a href="/video/${ detail.id }" class="moredetail">more detail</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                `;
+
+            // Insert the additional row after the new row
+                newRow.insertAdjacentHTML('afterend', additionalRowHTML);
+
+                console.log(`Row ${index + 1}: ${detail.id}, ${detail.rank}, ${detail.time}, ...`);
+            });
+
+            if (existingRows.length > data.length) {
+                for (let i = data.length; i < existingRows.length / 2; i++) {
+                    existingRows[i * 2].style.display = 'none';
+                }
+            }
+        }
+
+
+        function updatePagination(pagination, currentPage, nextnum, prevnum) {
+            const paginationList = document.querySelector('.pagination');
+            paginationList.innerHTML = '';
+
+            if (prevnum) {
+                const nextPageItem = document.createElement('li');
+                nextPageItem.className = 'page-item';
+                nextPageItem.innerHTML = `<a class="page-link" type="button" onclick="updatescore('${prevnum}')">&laquo;</a>`;
+                paginationList.appendChild(nextPageItem);
+            }
+
+            pagination.forEach(pageNum => {
+                const newPageItem = document.createElement('li');
+
+                if (pageNum === currentPage) {
+                    newPageItem.className = 'page-item active';
+                    newPageItem.innerHTML = `<a class="page-link">${pageNum}</a>`;
+                } else if (pageNum === null) {
+                    newPageItem.className = 'page-item disabled';
+                    newPageItem.innerHTML = '<a class="page-link">...</a>';
+                } else {
+                    newPageItem.className = 'page-item';
+                    newPageItem.innerHTML = `<a class="page-link" type="button" onclick="updatescore('${pageNum}')">${pageNum}</a>`;
+                }
+                paginationList.appendChild(newPageItem);
+            });
+
+            if (nextnum) {
+                const nextPageItem = document.createElement('li');
+                nextPageItem.className = 'page-item';
+                nextPageItem.innerHTML = `<a class="page-link" type="button" onclick="updatescore('${nextnum}')">&raquo;</a>`;
+                paginationList.appendChild(nextPageItem);
+            }
+        }
+
+
+    function updateDropdown() {
+        // Update the dropdown button text and perform any other actions based on the selected option
+ 
+        var dropdownIcon = document.getElementById('src');
+        var dropdownLabel = document.getElementById('text');
+        if (selected === 'Score') {
+            dropdownIcon.src = "static/img/web/icon _signal_.svg";
+            dropdownLabel.textContent = "Score";
+        } else if (selected === 'Date') {
+            dropdownIcon.src = "static/img/web/icon _calendar_.svg";
+            dropdownLabel.textContent = "Date";
+        } else if (selected === 'Time') {
+            dropdownIcon.src = "static/img/web/clock.svg";
+            dropdownLabel.textContent = "Time";
+        } else if (selected === 'Speed') {
+            dropdownIcon.src = "static/img/web/icon _Alternate Tachometer_.svg";
+            dropdownLabel.textContent = "Speed";
+        }
+    }
+
+    </script>
+</body>
+
+</html>

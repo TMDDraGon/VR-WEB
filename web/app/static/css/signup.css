@@ -1,0 +1,249 @@
+body {
+    background-color: black;
+    color: #ffffde;
+    font-family: 'Recursive';
+}
+
+.container {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+div.box1 {
+    background-color: #05204A;
+    border-radius: 30px;
+    margin-top: 100px;
+    max-width: 600px;
+    max-height: 650px;
+    width: 100%;
+    height: 100%;
+}
+
+div.box2 {
+    background-color: #ffffde;
+    color: black;
+    border-radius: 30px;
+    margin-top: 100px;
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    max-width: 600px;
+    max-height: 650px;
+    width: 100%;
+    height: 100%;
+}
+div.box3 {
+    text-align: center;
+}
+
+legend.title {
+    color: black;
+    text-align: center;
+    font-size: 36px;
+}
+
+
+div.img-left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    width: 100%;
+    height: auto;
+}
+
+div#form-group-line.mb-3 {
+    display: flex;
+    flex-direction: column;
+}
+
+div#form-group-half.mb-3 {
+    width: 50%;
+    display: flex;
+    
+}
+
+input#otp {
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.75);
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+input#firstname, #lastname, #username, #date, #location, #oldpassword, #newpassword, #confirmpassword {
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.20);
+    padding: 10px;
+    border-color: transparent;
+    width: 100%;
+}
+
+input#email, #phone, #password, #repeatpassword {
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.20);
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-color: transparent;
+    width: 100%;
+}
+
+label.text-wrapper {
+    color: #000;
+    font-family: 'Recursive';
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+input.form-check-input {
+    background-image: url(icon\ _Gender\ male_.svg);
+    border: transparent;
+}
+
+input.form-check-input {
+    background-image: url(icon\ _Gender\ female_.svg);
+}
+
+h3 {
+    margin-top: 30px;
+}
+a.title:hover {
+    color:rgb(255, 255, 222, 0.5);
+}
+
+a.btn.btn-primary-confirm {
+    background-color: #05204A;
+    color: #ffffde;
+    width: 100%;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    border-radius: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-top: 30px;
+}
+
+a.btn.btn-primary-nextstep {
+    background-color: #05204A;
+    color: #ffffde;
+    width: 100%;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    border-radius: 50px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+button.btn.btn-primary-verify {
+    color: black;
+    background-color: #ffffde;
+    font-size: 32px;
+    border-radius: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 50px;
+    padding-left: 50px;
+}
+
+button.backbutton {
+    color: black;
+    background: none;
+    border-color: transparent;
+}
+
+.line-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+div.line {
+    flex-grow: 1;
+    height: 2px;
+    background-color: #000;
+}
+
+div.linestep {
+    flex-grow: 1;
+    height: 1px;
+    background-color: #000;
+    margin: 0 10px;
+}
+
+div.circleoneone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #05204A;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    /* margin-left: 150px; */
+    color: #ffffde;
+}
+
+div.circletwotwo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #05204A;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    /* margin-left: 150px; */
+    color: #ffffde;
+}
+div.circleonetwo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(5, 32, 74, 0.75);
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    color: #ffffde;
+}
+
+div.circletwoone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(5, 32, 74, 0.75);
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    color: #ffffde;
+}
+
+label.steptwo {
+    color: #ffffde;
+}
+
+div.orline {
+    margin-left: 15px;
+    margin-right: 15px;
+}
+ 
+span.google {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 25px;
+}
+
+div.modal-content {
+    background-color: #05204A;
+    border-radius: 50px;
+}

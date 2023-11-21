@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Recursive&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="static/css/logo_transparent.png" />
+    <title>VR CS</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="static/css/profile.css">
+
+</head>
+
+<body>
+    <div class="container">
+        
+        <a class="VRacer" href="/"><h3 style="color: #FFFFDE;">VRacer</h3></a>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="box">
+                    <div class="img-container">
+                        <img src="{{ url_for('img', filename=current_user.avatar) }}" class="img-profile" alt="profile">
+                    </div>
+                    <h3>{{current_user.username}} Ranking {{rank}}</h3>
+                    <div class="row">
+                        <div class="personality">
+                            personality : {{current_user.personality}}
+                        </div>
+                        <div class="playtimes">
+                            playtimes : {{time}}
+                        </div>
+                        <div class="Bio_profile">
+                            bio : {{current_user.bio}}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="box">
+                            <div class="Profile-toggle" id="show-profile">
+                                <a class="changebox" href="#">
+                                    <span class="text">Profile</span>
+                                </a>
+                            </div>
+                            <div class="Change-password-toggle" id="show-changepassword">
+                                <a class="changebox" href="#">
+                                    <span class="text">Change password</span>
+                                </a>
+                            </div>
+                            <div class="delete-toggle" id="show-deleteaccount">
+                                <a class="changebox" href="#">
+                                    <span class="text">Delete Account</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="box" id="profile-form">
+                    <form onsubmit="updateprofile()">
+                        <legend class="profile title">Profile</legend>
+                        <div class="line"></div>
+                        <div class="mb-3" id="form-group">
+                            <label for="username" class="text-wrapper">Username</label>
+                            <input type="text" id="username" name="username" placeholder="" value="{{current_user.username}}">
+                            <div id="passwordHelpBlock" class="form-text">
+                                Your name may appear around VRacer where you contribute or are mentioned. You can remove
+                                it at any time.
+                            </div>
+                        </div>
+                        <div class="mb-3" id="form-group">
+                            <label for="firstname" class="text-wrapper">Firstname</label>
+                            <input type="text" id="firstname" name="firstname" placeholder="name" value="{{current_user.fname}}">
+                        </div>
+                        <div class="mb-3" id="form-group">
+                            <label for="lastname" class="text-wrapper">Lastname</label>
+                            <input type="text" id="lastname" name="lastname" placeholder="" value="{{current_user.lname}}" >
+                        </div>
+                        <div class="mb-3" id="form-group">
+                            <label for="email" class="text-wrapper">Email</label>
+                            <input type="email" id="email" name="email" placeholder="" value="{{current_user.email}}" disabled>
+                        </div>
+                        <div class="mb-3" id="form-group">
+                            <label for="bio" class="text-wrapper">Bio</label>
+                            <input type="text" id="bio" name="bio"
+                                placeholder="" value="{{current_user.bio}}">
+                        </div>
+                        <div class="mb-3" id="form-group">
+                            <label for="location" class="text-wrapper">Location</label>
+                            <input type="text" id="location" name="location" placeholder="" value="{{current_user.location}}">
+                        </div>
+                        <div class="d-flex bd-highlight mb-3">
+                            <div class="p-2 bd-highlight">
+                                <button type="submit" class="btn btn-primary">
+                                    Update Profile
+                                </button>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <a href="/forgotpassword">
+                                    <span class="forgot">I forgot my password</span>
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="box" id="changepassword-form" hidden="hidden">
+                    <legend class="profile title">Change password</legend>
+                    <div class="line"></div>
+                    <form onsubmit="change_password()">
+                        <div class="mb-3" id="form-group">
+                            <label for="old-password" class="text-wrapper">Old password</label>
+                            <input type="password" id="oldpassword" name="oldpassword" required>
+                        </div>
+                        <div class="mb-3" id="form-group">
+                            <label for="new-password" class="text-wrapper">New password</label>
+                            <input type="password" id="newpassword" name="newpassword" required>
+                        </div>
+                        <div class="mb-3" id="form-group">
+                            <label for="confirm-password" class="text-wrapper">Confirm new password</label>
+                            <input type="password" id="confirmpassword" name="confirmpassword" required>
+                        </div>
+                        <button type="button" class="btn btn-primary password" onclick="updatePassword()">
+                            Update password
+                        </button>
+                    </form>
+                </div>
+                <div class="box" id="delete-form" hidden="hidden">
+                    <legend class="profile title">Delete Account</legend>
+                    <div class="line"></div>
+                    <form onsubmit="delete_prpfile()">
+                        <div class="mb-3" id="form-group">
+                            <label for="confirm-password" class="text-wrapper">Password</label>
+                            <input type="password" id="password" name="password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary delete-account" style="margin-top: 20px;">
+                            Delete Account
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleView(targetFormId) {
+            
+            $('#profile-form, #changepassword-form, #delete-form').attr('hidden', 'hidden');
+            
+            $(targetFormId).removeAttr('hidden');
+        }
+
+        $("#show-profile").click(function () {
+            toggleView('#profile-form');
+        });
+
+        $("#show-changepassword").click(function () {
+            toggleView('#changepassword-form');
+        });
+
+        $("#show-deleteaccount").click(function () {
+            toggleView('#delete-form');
+        });
+
+
+        function updatePassword() {
+            event.preventDefault();
+
+            const requestData = {
+                oldpassword: document.getElementById("oldpassword").value,
+                password: document.getElementById("newpassword").value,
+                confirmpassword: document.getElementById("confirmpassword").value
+            };
+            console.log(requestData)
+            fetch("/api/changepassword", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(requestData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.message)
+                    if (data.message === 'successfully') {
+                        alert("Change password successfully.");
+                    } else if (data.message === 'Password cannot be edited.') {
+                        console.log(2)
+                    } else if (data.message === 'Passwords do not match.') {
+                        alert("Your passwords not match.");
+                        oldpassword.value = "";
+                        password.value = "";
+                        confirmpassword.value = "";
+                    } else if (data.message === 'Incorrect old password.') {
+                        alert("Incorrect old password.");
+                        oldpassword.value = "";
+                        password.value = "";
+                        confirmpassword.value = "";
+                    }
+                });
+        }
+
+
+        function updateprofile() {
+            event.preventDefault();
+
+            const requestData = {
+                fname : document.getElementById("firstname").value,
+                lname : document.getElementById("lastname").value,
+                username : document.getElementById("username").value,
+                bio : document.getElementById("bio").value,
+                location : document.getElementById("location").value
+            };
+            console.log(requestData)
+            fetch("/api/editprofile", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(requestData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message === 'successfully') {
+                        window.location.href = data.redirect;
+                    } else {
+                        alert("your data not successfully.");
+                    }
+                });
+        }
+
+        function delete_prpfile() {
+            event.preventDefault();
+            const requestData = {
+                password: document.getElementById("password").value,
+            };
+
+            console.log(requestData)
+            fetch("/api/deleteaccount", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(requestData)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message === 'Account successfully deleted') {
+                        alert("Account successfully deleted.");
+                        window.location.href = data.redirect;
+                    } else {
+                        console.log(data.message);
+                        if (document.getElementById("password").value === '') {
+                            console.log("password blank");
+                            document.getElementById("password").setCustomValidity("Please enter your password");
+                            document.getElementById("password").reportValidity();
+                        } else {
+                            console.log("password Incorrect");
+                            alert("Incorrect your password");
+                            document.getElementById("password").value = '';
+                        }
+                    }
+                });
+        }
+    </script>
+</body>
+
+</html>

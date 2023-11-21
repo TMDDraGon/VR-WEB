@@ -1,0 +1,261 @@
+body {
+    background-color: black;
+    color: #ffffde;
+    font-family: 'Recursive';
+}
+
+.custom-box {
+    width: 1294px;
+    height: 745px;
+    flex-shrink: 0;
+    border-radius: 10px;
+    background: #D9D9D9;
+    margin-bottom: 338px;
+}
+
+.row {
+  padding-right: 0;
+  padding-left: 0;
+  margin-right: 0;
+  margin-left: 0;
+}
+
+.col-md-6 {
+  position: relative;
+  padding: 0;
+  margin: 0;
+}
+
+.d-flex.bd-highlight {
+  position: relative;
+}
+
+.minimap {
+  position: absolute;
+  width: 100%;
+  max-width: 600px;
+  height: 100%;
+  max-height: 600px;
+  border-radius: 75px;
+  overflow: hidden;
+  z-index: 1;
+}
+
+img.regback {
+  margin-top: 24px;
+  width: 100%;
+  max-width: 600px;
+  height: 100%;
+  max-height: 600px;
+  border-radius: 75px;
+  overflow: hidden;
+}
+
+div.img-container {
+  max-width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+img.profile {
+  width: 100%;
+  height: 100%;
+  max-width: 100px;
+  max-height: 100px;
+  border-radius: 50%;
+}
+
+div.box-white {
+  background-color: #ffffde;
+  color: #05204A;
+  border-radius: 25px;
+  margin: 10px;
+  padding: 10px;
+  /* width: 100%;
+  height: 100%;
+  max-width: 300px;
+  max-height: 300px; */
+}
+
+div.text-black {
+  color: #05204A;
+  text-align: center;
+  padding: 15px;
+}
+
+div.box-black {
+  background-color: #05204A;
+  color: #ffffde;
+  border-radius: 25px;
+  margin: 10px;
+  padding: 10px;
+  /* width: 100%;
+  height: 100%;
+  max-width: 300px;
+  max-height: 300px; */
+}
+
+div.text-white {
+  color: #ffffde;
+  text-align: center;
+  padding: 15px;
+}
+
+h3.text-role {
+ padding: 10px;
+}
+
+
+
+/* Adjust the top, left, and other properties as needed to position the <spline-viewer> */
+
+/* Add any necessary styling to the images or other elements */
+
+/* .overlap {
+  position: relative;
+}
+
+.overlap2 {
+  position: relative;
+  margin-top: 1115px;
+}
+
+.rec,
+.rec2,
+.rec-row-1,
+.rec-row-2 {
+  position: absolute;
+}
+
+div.rec {
+  background-color: #ffffde;
+  border-top-right-radius: 76px;
+  border-bottom-right-radius: 76px;
+  width: 654px;
+  height: 600px;
+}
+
+div.rec2 {
+  background-color: rgb(255, 255, 222, 0.5);
+  border-top-right-radius: 76px;
+  border-bottom-right-radius: 76px;
+  width: 632px;
+  height: 600px;
+  margin-top: 20px;
+}
+
+.mini-map,
+.rec-minimap,
+.modelcar,
+.rec-modelcar {
+  position: absolute;
+}
+
+div.mini-map {
+  border-radius: 75px;
+  overflow: hidden;
+  width: 600px;
+  height: 600px;
+  margin-left: 20px;
+  z-index: 2;
+}
+
+div.rec-minimap {
+  background-color: rgb(255, 255, 222, 0.5);
+  border-radius: 75px;
+  width: 600px;
+  height: 600px;
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+div.rec-row-1 {
+  background-color: #ffffde;
+  border-top-left-radius: 76px;
+  border-bottom-left-radius: 76px;
+  width: 654px;
+  height: 600px;
+}
+
+div.rec-row-2 {
+  background-color: rgb(255, 255, 222, 0.5);
+  border-top-left-radius: 76px;
+  border-bottom-left-radius: 76px;
+  width: 680px;
+  height: 600px;
+  margin-top: 20px;
+}
+
+div.modelcar {
+  border-radius: 75px;
+  overflow: hidden;
+  width: 600px;
+  height: 600px;
+  margin-left: 20px;
+  z-index: 2;
+}
+
+div.rec-modelcar {
+  background-color: rgb(255, 255, 222, 0.5);
+  border-radius: 75px;
+  width: 600px;
+  height: 600px;
+  margin-top: 20px;
+  margin-right: 20px;
+} */
+
+
+img.img-profile {
+    width: 100%;
+    max-width: 60px;
+    height: auto;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  
+  .custom-navbar {
+    border-radius: 20px;
+    background: #05204A;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  
+  a.navbar-brand {
+    color: #ffffde;
+    font-size: 40px;
+  }
+
+  a.signup {
+    color: #05204A;
+  }
+
+  a.signup:link { text-decoration: none;}
+
+button.btn.btn-primary-login {
+    border-radius: 10px;
+    border-color: #ffffde;
+    color: #ffffde;
+}
+
+button.btn.btn-primary-signup {
+    border-radius: 10px;
+    background-color: #ffffde;
+    color: #05204A;
+}
+
+div.modal-content {
+  background-color: #05204A;
+  color: #ffffde;
+}
+
+button.logout-btn {
+  background-color: #ffffde;
+  border-radius: 10px;
+  color: #05204A;
+  padding: 10px;
+}
